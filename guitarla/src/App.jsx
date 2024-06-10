@@ -8,6 +8,9 @@ function App() {
     const [cart, setCart] = useState([]);
 
     function addToCart(item) {
+        const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
+        console.log(itemExists);
+
         setCart((prevCart) => [...prevCart, item]);
     }
 
@@ -20,12 +23,7 @@ function App() {
 
                 <div className="row mt-5">
                     {data.map((guitar) => (
-                        <Guitar
-                            key={guitar.id}
-                            guitar={guitar}
-                            setCart={setCart}
-                            addToCart={addToCart}
-                        />
+                        <Guitar key={guitar.id} guitar={guitar} addToCart={addToCart} />
                     ))}
                 </div>
             </main>
