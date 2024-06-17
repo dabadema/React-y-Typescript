@@ -8,7 +8,6 @@ export default function Header({
     clearCart,
 }) {
     // State derivado
-
     const isEmpty = useMemo(() => cart.length === 0, [cart]);
     const cartTotal = useMemo(
         () => cart.reduce((acc, item) => acc + item.quantity * item.price, 0),
