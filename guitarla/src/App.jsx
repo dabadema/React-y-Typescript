@@ -4,8 +4,13 @@ import Header from './components/Header';
 import { db } from './data/db';
 
 function App() {
+    const initialCart = () => {
+        const LocalStorageCart = localStorage.getItem('cart');
+        return localStorage ? JSON.parse(LocalStorageCart) : [];
+    };
+
     const [data, setData] = useState(db);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(initialCart);
 
     const MAX_ITEMS = 5;
     const MIN_ITEMS = 1;
