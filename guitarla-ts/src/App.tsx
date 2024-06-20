@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Guitar from './components/Guitar';
 import Header from './components/Header';
 import { useCart } from './hooks/useCart';
@@ -15,8 +14,6 @@ function App() {
         isEmpty,
         cartTotal,
     } = useCart();
-
-    const [auth, setAuth] = useState(20);
 
     return (
         <>
