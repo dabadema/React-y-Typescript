@@ -6,15 +6,13 @@ type Guitar = {
     price: number;
 };
 
-export default function Guitar({
-    guitar,
-    addToCart,
-}: {
+type GuitarProps = {
     guitar: Guitar;
     addToCart: (item: Guitar) => void;
-}) {
-    // Destructuring guitar
-    const { id, name, image, description, price } = guitar;
+};
+
+export default function Guitar({ guitar, addToCart }: GuitarProps) {
+    const { name, image, description, price } = guitar;
 
     return (
         <div className="col-md-6 col-lg-4 my-4 row align-items-center">
