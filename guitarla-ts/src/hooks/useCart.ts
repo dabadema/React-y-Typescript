@@ -1,8 +1,9 @@
+import type { Guitar, CartItem } from '../types';
 import { useState, useEffect, useMemo } from 'react';
 import { db } from '../data/db';
 
 export const useCart = () => {
-    const initialCart = () => {
+    const initialCart = (): CartItem[] => {
         const LocalStorageCart = localStorage.getItem('cart');
         return LocalStorageCart ? JSON.parse(LocalStorageCart) : [];
     };
