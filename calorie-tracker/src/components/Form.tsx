@@ -1,17 +1,20 @@
 import { useState, ChangeEvent } from 'react';
+import type { Activity } from '../types';
 import { categories } from '../data/categories';
 
 export default function Form() {
-    const [activity, setActivity] = useState({
+    const [activity, setActivity] = useState<Activity>({
         category: 1,
         name: '',
         calories: 0,
     });
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
+        const isNumberField = ['category', 'calories'].includes(e.target.id);
+
         setActivity({
             ...activity,
-            [e.target.id]: e.target.value,
+            [e.target.id]: isNumberField ? +e.target.value : e.target.value,
         });
     };
 
@@ -19,8 +22,7 @@ export default function Form() {
         <form className="space-y-5 bg-white shadow p-10 rounded-lg">
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="category" className="font-bold">
-                    {' '}
-                    Categoría:{' '}
+                    Categoría:
                 </label>
                 <select
                     className="border border-slate-300 p-2 rounded-lg w-full bg-white"
@@ -38,8 +40,7 @@ export default function Form() {
 
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="name" className="font-bold">
-                    {' '}
-                    Actividad:{' '}
+                    Actividad:
                 </label>
                 <input
                     id="name"
@@ -53,8 +54,7 @@ export default function Form() {
 
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="calories" className="font-bold">
-                    {' '}
-                    Calorias:{' '}
+                    Calorias:
                 </label>
                 <input
                     id="calories"
