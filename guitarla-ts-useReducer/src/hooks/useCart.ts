@@ -1,6 +1,5 @@
 import type { Guitar, CartItem } from '../types';
 import { useState, useEffect, useMemo } from 'react';
-import { db } from '../data/db';
 
 export const useCart = () => {
     const initialCart = (): CartItem[] => {
@@ -8,7 +7,6 @@ export const useCart = () => {
         return LocalStorageCart ? JSON.parse(LocalStorageCart) : [];
     };
 
-    const [data] = useState(db);
     const [cart, setCart] = useState(initialCart);
 
     const MAX_ITEMS = 5;
@@ -73,7 +71,6 @@ export const useCart = () => {
     );
 
     return {
-        data,
         cart,
         addToCart,
         removeFromCart,
