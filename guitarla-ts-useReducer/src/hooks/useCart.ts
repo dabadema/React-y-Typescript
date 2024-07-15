@@ -7,18 +7,9 @@ export const useCart = () => {
         return LocalStorageCart ? JSON.parse(LocalStorageCart) : [];
     };
 
-    const [cart, setCart] = useState(initialCart);
+    const [cart] = useState(initialCart);
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
-
-    function clearCart() {
-        setCart([]);
-    }
-
-    return {
-        cart,
-        clearCart,
-    };
 };
