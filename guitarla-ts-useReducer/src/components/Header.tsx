@@ -1,24 +1,29 @@
+import { useMemo, Dispatch } from 'react';
 import type { CartItem, Guitar } from '../types';
+import { CartActions } from '../reducers/cart-reducer';
 
 type HeaderProps = {
     cart: CartItem[];
-    removeFromCart: (id: Guitar['id']) => void;
+    dispatch: Dispatch<CartActions>;
     decreaseQuantity: (id: Guitar['id']) => void;
     increaseQuantity: (id: Guitar['id']) => void;
     clearCart: () => void;
-    isEmpty: boolean;
-    cartTotal: number;
 };
 
 export default function Header({
     cart,
-    removeFromCart,
+    dispatch,
     increaseQuantity,
     decreaseQuantity,
     clearCart,
-    isEmpty,
-    cartTotal,
 }: HeaderProps) {
+    // State derivado
+    const isEmpty = useMemo(() => cart.length === 0, [cart]);
+    const cartTotal = useMemo(
+        () => cart.reduce((acc, item) => acc + item.quantity * item.price, 0),
+        [cart]
+    );
+
     return (
         <header className="py-5 header">
             <div className="container-xl">
@@ -89,7 +94,12 @@ export default function Header({
                                                                 className="btn btn-danger"
                                                                 type="button"
                                                                 onClick={() =>
-                                                                    removeFromCart(guitar.id)
+                                                                    dispatch({
+                                                                        type: 'remove-from-cart',
+                                                                        payload: {
+                                                                            id: guitar.id,
+                                                                        },
+                                                                    })
                                                                 }
                                                             >
                                                                 X
