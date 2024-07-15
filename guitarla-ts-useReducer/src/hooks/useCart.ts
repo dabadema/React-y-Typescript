@@ -16,19 +16,6 @@ export const useCart = () => {
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
 
-    function increaseQuantity(id: Guitar['id']) {
-        const updatedCart = cart.map((item) => {
-            if (item.id === id && item.quantity < MAX_ITEMS) {
-                return {
-                    ...item,
-                    quantity: item.quantity + 1,
-                };
-            }
-            return item;
-        });
-        setCart(updatedCart);
-    }
-
     function clearCart() {
         setCart([]);
     }
@@ -49,7 +36,6 @@ export const useCart = () => {
     return {
         cart,
         decreaseQuantity,
-        increaseQuantity,
         clearCart,
     };
 };
