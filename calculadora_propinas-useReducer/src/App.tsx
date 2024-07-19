@@ -35,9 +35,13 @@ function App() {
                         <>
                             <OrderContents order={state.order} dispatch={dispatch} />
 
-                            <TipPercentageForm setTip={setTip} tip={tip} />
+                            <TipPercentageForm dispatch={dispatch} tip={state.tip} />
 
-                            <OrderTotal order={state.order} tip={tip} placeOrder={placeOrder} />
+                            <OrderTotal
+                                order={state.order}
+                                tip={state.tip}
+                                placeOrder={placeOrder}
+                            />
                         </>
                     ) : (
                         <p className="text-center"> La orden está vacía </p>

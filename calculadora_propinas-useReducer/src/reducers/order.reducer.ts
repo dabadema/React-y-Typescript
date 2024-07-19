@@ -50,8 +50,10 @@ export const orderReducer = (state: OrderState = initialState, action: OrderActi
         };
     }
     if (action.type === 'add-tip') {
+        const tip = action.payload.value;
         return {
             ...state,
+            tip,
         };
     }
 };
