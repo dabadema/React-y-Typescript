@@ -26,7 +26,7 @@ function App() {
 
                     <div className="space-y-3 mt-10">
                         {menuItems.map((item) => (
-                            <MenuItem key={item.id} item={item} addItem={addItem} />
+                            <MenuItem key={item.id} item={item} dispatch={dispatch} />
                         ))}
                     </div>
                 </div>
