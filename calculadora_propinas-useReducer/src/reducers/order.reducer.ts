@@ -1,4 +1,4 @@
-import { OrderItem } from '../types';
+import { MenuItem, OrderItem } from '../types';
 
 export type OrderActions =
     | { type: 'add-item'; payload: { item: MenuItem } }
@@ -23,12 +23,12 @@ export const orderReducer = (state: OrderState = initialState, action: OrderActi
 
         if (itemExists) {
             order = state.order.map((orderItem) =>
-                (orderItem.id === orderItem.id) === action.payload.item.id
+                orderItem.id === action.payload.item.id
                     ? { ...orderItem, quantity: orderItem.quantity + 1 }
                     : orderItem
             );
         } else {
-            const newItem = { ...action.payload.item, quantity: 1 };
+            const newItem: OrderItem = { ...action.payload.item, quantity: 1 };
             order = [...state.order, newItem];
         }
         return {
@@ -37,8 +37,11 @@ export const orderReducer = (state: OrderState = initialState, action: OrderActi
         };
     }
     if (action.type === 'remove-item') {
+        const order = state.order.filter((item) => item.id !== action.payload.id);
+
         return {
             ...state,
+            order,
         };
     }
     if (action.type === 'place-order') {
