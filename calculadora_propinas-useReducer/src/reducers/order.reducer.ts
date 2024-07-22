@@ -58,4 +58,5 @@ export const orderReducer = (state: OrderState = initialState, action: OrderActi
             tip,
         };
     }
+    return state;
 };

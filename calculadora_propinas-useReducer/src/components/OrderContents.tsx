@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { formatCurrency } from '../helpers';
 import { OrderActions } from '../reducers/order.reducer';
-import { MenuItem, OrderItem } from '../types';
+import { OrderItem } from '../types';
 
 type orderContentsProps = {
     order: OrderItem[];

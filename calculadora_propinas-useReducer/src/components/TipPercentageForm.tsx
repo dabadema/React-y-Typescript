@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch } from 'react';
+import { OrderActions } from '../reducers/order.reducer';
 
 const tipOptions = [
     {
@@ -19,7 +20,7 @@ const tipOptions = [
 ];
 
 type TipPercentageFormProps = {
-    dispatch: Dispatch<SetStateAction<number>>;
+    dispatch: Dispatch<OrderActions>;
     tip: number;
 };
 
