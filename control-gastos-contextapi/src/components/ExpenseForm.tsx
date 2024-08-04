@@ -46,13 +46,23 @@ export default function ExpenseForm() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // Validating the form
         if (Object.values(expense).includes('')) {
             setError('Todos los campos son obligatorios');
             return;
         }
 
-        dispatch({ type: 'add-expense', payload: { expense } });
+        // Adding or updating the expense
+        if (state.editingId) {
+            dispatch({
+                type: 'update-expense',
+                payload: { expense: { id: state.editingId, ...expense } },
+            });
+        } else {
+            dispatch({ type: 'add-expense', payload: { expense } });
+        }
 
+        // Restarting the expense
         setExpense({
             amount: 0,
             expenseName: '',
