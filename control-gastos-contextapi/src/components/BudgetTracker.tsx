@@ -4,9 +4,13 @@ import AmountDisplay from './AmountDisplay';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function BudgetTracker() {
-    const { state, totalExpenses, remainingBudget } = useBudget();
+    const { state, dispatch, totalExpenses, remainingBudget } = useBudget();
 
     const percentage = +((totalExpenses / state.budget) * 100).toFixed(2);
+
+    // function dispatch(arg0: { type: string }): void {
+    //     throw new Error('Function not implemented.');
+    // }
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -27,6 +31,7 @@ export default function BudgetTracker() {
                 <button
                     type="button"
                     className="bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg"
+                    onClick={() => dispatch({ type: 'reset-app' })}
                 >
                     Resetear App
                 </button>
