@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import Error from './Error';
 
 export default function PatientForm() {
     const {
@@ -10,6 +11,8 @@ export default function PatientForm() {
     const registerPatient = () => {
         console.log('Nuevo Paciente');
     };
+
+    console.log(errors);
 
     return (
         <div className="md:w-1/2 lg:w-2/5 mx-5">
@@ -38,7 +41,8 @@ export default function PatientForm() {
                             required: 'El nombre del paciente es obligatorio',
                         })}
                     />
-                    {errors.name?.message}
+
+                    {errors.name && <Error> {errors.name?.message?.toString()} </Error>}
                 </div>
 
                 <div className="mb-5">
