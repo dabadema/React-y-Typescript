@@ -8,6 +8,7 @@ export default function PatientForm() {
     const addPatient = usePatientStore((state) => state.addPatient); //const { addPatient } = usePatientStore();   Esta es otra sintaxis y la que estoy empleando es mas parecida a Redux
     const activeId = usePatientStore((state) => state.activeId);
     const patients = usePatientStore((state) => state.patients);
+    const updatePatient = usePatientStore((state) => state.updatePatient);
 
     const {
         register,
@@ -29,7 +30,11 @@ export default function PatientForm() {
     }, [activeId]);
 
     const registerPatient = (data: DraftPatient) => {
-        addPatient(data);
+        if (activeId) {
+            updatePatient(data);
+        } else {
+            addPatient(data);
+        }
         reset();
     };
 
