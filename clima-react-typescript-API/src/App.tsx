@@ -4,7 +4,7 @@ import WeatherDetail from './components/WeatherDetail/WeatherDetail';
 import useWeather from './hooks/useWeather';
 
 function App() {
-    const { fetchWeather } = useWeather();
+    const { fetchWeather, weather, hasWeatherData } = useWeather();
 
     console.log(import.meta.env);
 
@@ -14,9 +14,7 @@ function App() {
 
             <div className={styles.container}>
                 <Form fetchWeather={fetchWeather} />
-                <p>
-                    <WeatherDetail weather={weather} />
-                </p>
+                <p>{hasWeatherData && <WeatherDetail weather={weather} />}</p>
             </div>
         </>
     );
