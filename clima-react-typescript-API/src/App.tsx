@@ -1,5 +1,6 @@
 import styles from './App.module.css';
 import Form from './components/Form/Form';
+import WeatherDetail from './components/WeatherDetail/WeatherDetail';
 import useWeather from './hooks/useWeather';
 
 function App() {
@@ -13,7 +14,9 @@ function App() {
 
             <div className={styles.container}>
                 <Form fetchWeather={fetchWeather} />
-                <p>2</p>
+                <p>
+                    <WeatherDetail weather={weather} />
+                </p>
             </div>
         </>
     );
