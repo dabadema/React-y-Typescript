@@ -9,7 +9,7 @@ type WeatherDetailsProps = {
 export default function WeatherDetail({ weather }: WeatherDetailsProps) {
     return (
         <div className={styles.container}>
-            <div>Clima de: {weather.name}</div>
+            <h2>Clima de: {weather.name}</h2>
             <p className={styles.current}>{formatTemperature(weather.main.temp)}&deg;C</p>
             <div className={styles.temperatures}>
                 <p>
