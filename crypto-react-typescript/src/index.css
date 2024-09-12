@@ -16,6 +16,7 @@ body {
     font-family: 'Outfit', sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    font-size: 2rem;
 }
 .container {
     margin: 0 auto;
@@ -39,4 +40,33 @@ body {
     background-color: var(--white);
     border-radius: 1rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.form,
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.form label {
+    color: var(--black);
+}
+.form select {
+    background-color: #ecebeb;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+}
+.form [type='submit'] {
+    background-color: var(--primary);
+    color: var(--black);
+    border: none;
+    padding: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-top: 2rem;
+    transition: background-color 300ms ease;
+}
+.form [type='submit']:hover {
+    background-color: #0cb387;
 }
