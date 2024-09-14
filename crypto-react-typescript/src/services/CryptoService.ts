@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CryptoCurrenciesResponseSchema } from '../schema/crypto-schema';
+import { CryptoCurrenciesResponseSchema, CryptoPriceSchema } from '../schema/crypto-schema';
 import { Pair } from '../types';
 
 export async function getCryptos() {
@@ -18,5 +18,9 @@ export async function fetchCurrentCryptoPrice(pair: Pair) {
     const {
         data: { DISPLAY },
     } = await axios(url);
-    console.log(DISPLAY[pair.cryptocurrency][pair.currency]);
+
+    const result = CryptoPriceSchema.safeParse(DISPLAY[pair.cryptocurrency][pair.currency]);
+    if (result.success) {
+        return result.data;
+    }
 }
