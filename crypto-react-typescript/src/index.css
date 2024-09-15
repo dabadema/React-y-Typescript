@@ -85,12 +85,10 @@ body {
 }
 .result img {
     width: 100%;
-    padding: 2rem;
 }
 .result p {
     margin: 0 0 1rem;
     font-size: 1.6rem;
-    padding-left: 6rem;
 }
 .result span {
     font-weight: 700;
