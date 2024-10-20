@@ -78,6 +78,23 @@ export default function Modal() {
                                         className="text-gray-900 text-2xl font-extrabold my-5"
                                     >
                                         <p className="text-lg">{selectedRecipe.strInstructions}</p>
+
+                                        <div className="mt-5 flex justify-between gap-4">
+                                            <button
+                                                type="button"
+                                                className="w-full rounded bg-gray-600 p-3 hover:bg-gray-500  font-bold text-white text-lg uppercase shadow"
+                                                onClick={closeModal}
+                                            >
+                                                Cerrar
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="w-full rounded bg-orange-600 p-3 hover:bg-orange-500  font-bold text-white text-lg uppercase shadow"
+                                                onClick={}
+                                            >
+                                                Agregar a Favoritos
+                                            </button>
+                                        </div>
                                     </Dialog.Title>
                                 </Dialog.Panel>
                             </Transition.Child>
