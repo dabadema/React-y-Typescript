@@ -28,8 +28,15 @@ export const createFavoriteSlice: StateCreator<
             }));
         }
         createRecipesSlice(set, get, api).closeModal();
+        localStorage.setItem('favorites', JSON.stringify(get().favorites));
     },
     favoriteExists: (id) => {
         return get().favorites.some((favorite) => favorite.idDrink === id);
+    },
+    loadFromStorage: () => {
+        const storeFavorites = localStorage.getItem('favorites');
+        if (storeFavorites) {
+            set({ favorites: JSON.parse(storeFavorites) });
+        }
     },
 });
