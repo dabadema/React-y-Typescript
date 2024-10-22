@@ -92,7 +92,9 @@ export default function Modal() {
                                             <button
                                                 type="button"
                                                 className="w-full rounded bg-orange-600 p-3 hover:bg-orange-500  font-bold text-white text-lg uppercase shadow"
-                                                onClick={() => handleClickFavorite(selectedRecipe)}
+                                                onClick={() => {
+                                                    handleClickFavorite(selectedRecipe);
+                                                }}
                                             >
                                                 {favoriteExists(selectedRecipe.idDrink)
                                                     ? 'Eliminar favorito'

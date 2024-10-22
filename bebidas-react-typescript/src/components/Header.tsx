@@ -27,13 +27,11 @@ export default function Header() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        //TODO Validar
         if (Object.values(searchFilters).includes('')) {
             console.log('Todos los campos son obligatorios');
             return;
         }
 
-        //Consultar las recetas
         searchRecipes(searchFilters);
     };
 
