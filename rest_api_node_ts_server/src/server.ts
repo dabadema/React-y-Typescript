@@ -1,7 +1,7 @@
 import express from 'express';
 import router from './router';
-import db from './config/db';
 import colors from 'colors';
+import db from './config/db';
 
 //Connect to DB
 async function connectDB() {
