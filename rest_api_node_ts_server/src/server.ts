@@ -17,7 +17,11 @@ async function connectDB() {
 
 connectDB();
 
+// Express instance
 const server = express();
+
+// Reading data from forms
+server.use(express.json());
 
 server.use('/api/products', router);
 
