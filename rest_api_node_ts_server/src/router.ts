@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { createProduct } from './handlers/product';
-import { check } from 'express-validator';
+import { handleInputErrors } from './middleware';
 const router = Router();
 
 router.get('/', (req, res) => {
@@ -18,6 +18,7 @@ router.post(
         .withMessage('Price is required')
         .custom((value) => value > 0)
         .withMessage('Price must be greater than 0'),
+    handleInputErrors,
     createProduct
 );
 
