@@ -1,12 +1,25 @@
 import { Router } from 'express';
+import { body } from 'express-validator';
 import { createProduct } from './handlers/product';
+import { check } from 'express-validator';
 const router = Router();
 
 router.get('/', (req, res) => {
     res.json('Desde GET');
 });
 
-router.post('/', createProduct);
+router.post(
+    '/',
+    body('name').notEmpty().withMessage('Name is required'),
+    body('price')
+        .isNumeric()
+        .withMessage('Not valid value')
+        .notEmpty()
+        .withMessage('Price is required')
+        .custom((value) => value > 0)
+        .withMessage('Price must be greater than 0'),
+    createProduct
+);
 
 router.put('/', (req, res) => {
     res.json('Desde PUT');
