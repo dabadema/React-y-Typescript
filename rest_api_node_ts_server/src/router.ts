@@ -1,6 +1,12 @@
 import { Router } from 'express';
 import { body, param } from 'express-validator';
-import { createProduct, getProductById, getProducts, updateProduct } from './handlers/product';
+import {
+    createProduct,
+    getProductById,
+    getProducts,
+    updateAvailability,
+    updateProduct,
+} from './handlers/product';
 import { handleInputErrors } from './middleware';
 const router = Router();
 
@@ -43,9 +49,12 @@ router.put(
     updateProduct
 );
 
-router.patch('/', (req, res) => {
-    res.json('Desde PATCH');
-});
+router.patch(
+    '/:id',
+    param('id').isInt().withMessage('Id must be a number'),
+    handleInputErrors,
+    updateAvailability
+);
 
 router.delete('/', (req, res) => {
     res.json('Desde DELETE');

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import Product from '../models/Product.model';
-import router from '../router';
 
 export const getProducts = async (req: Request, res: Response) => {
     try {
@@ -48,6 +47,21 @@ export const updateProduct = async (req: Request, res: Response) => {
 
     await product.update(req.body);
     await product.save();
+
+    res.json({ data: product, message: 'Product updated successfully' });
+};
+
+export const updateAvailability = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+    }
+
+    product.availability = !product.availability;
+    await product.save();
+
+    console.log(product.dataValues);
 
     res.json({ data: product, message: 'Product updated successfully' });
 };
