@@ -38,3 +38,16 @@ export const createProduct = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+export const updateProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+    }
+
+    await product.update(req.body);
+    await product.save();
+
+    res.json({ data: product, message: 'Product updated successfully' });
+};
