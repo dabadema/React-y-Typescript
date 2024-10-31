@@ -51,3 +51,20 @@ describe('POST /api/products', () => {
         expect(response.status).not.toBe(200);
     });
 });
+
+describe('GET /api/products', () => {
+    it('Should check whether api/products url exists', async () => {
+        const response = await request(server).get('/api/products');
+        expect(response.status).toBe(200);
+    });
+
+    it('Should get a JSON with all products', async () => {
+        const response = await request(server).get('/api/products');
+        expect(response.status).toBe(200);
+        expect(response.headers['content-type']).toContain('application/json');
+        expect(response.body.data).toHaveLength(1);
+
+        expect(response.body).not.toHaveProperty('errors');
+        expect(response.status).not.toBe(404);
+    });
+});
