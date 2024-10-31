@@ -19,7 +19,7 @@ export const getProductById = async (req: Request, res: Response) => {
         const { id } = req.params;
         const product = await Product.findByPk(id);
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            res.status(404).json({ message: 'Product not found' });
         }
         res.json({ data: product });
     } catch (error) {
@@ -42,7 +42,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
     const product = await Product.findByPk(id);
     if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
+        res.status(404).json({ message: 'Product not found' });
     }
 
     await product.update(req.body);
@@ -55,7 +55,7 @@ export const updateAvailability = async (req: Request, res: Response) => {
     const { id } = req.params;
     const product = await Product.findByPk(id);
     if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
+        res.status(404).json({ message: 'Product not found' });
     }
 
     product.availability = !product.availability;
@@ -71,7 +71,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const product = await Product.findByPk(id);
 
     if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
+        res.status(404).json({ message: 'Product not found' });
     }
 
     await product.destroy();

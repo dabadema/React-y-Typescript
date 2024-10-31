@@ -2,6 +2,7 @@ import express from 'express';
 import router from './router';
 import colors from 'colors';
 import db from './config/db';
+import { Server } from 'http';
 
 //Connect to DB
 async function connectDB() {
@@ -24,5 +25,29 @@ const server = express();
 server.use(express.json());
 
 server.use('/api/products', router);
+
+server.get('/api', (req, res) => {
+    res.json({ message: 'Desde API' });
+});
+
+let appServer: Server | null = null;
+
+export const startServer = (port: number = 4000): Server => {
+    if (!appServer) {
+        appServer = server.listen(port, () => {
+            if (process.env.NODE_ENV !== 'test') {
+                console.log(`Server running on port ${port}`);
+            }
+        });
+    }
+    return appServer;
+};
+
+export const closeServer = (): Server | undefined => {
+    if (appServer) {
+        return appServer.close();
+    }
+    return undefined;
+};
 
 export default server;
