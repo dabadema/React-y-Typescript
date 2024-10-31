@@ -31,7 +31,7 @@ export const getProductById = async (req: Request, res: Response) => {
 export const createProduct = async (req: Request, res: Response) => {
     try {
         const product = await Product.create(req.body);
-        res.json({ data: product, message: 'Product created successfully' });
+        res.status(201).json({ data: product, message: 'Product created successfully' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Internal server error' });
