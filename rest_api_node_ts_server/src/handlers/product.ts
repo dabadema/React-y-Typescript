@@ -33,8 +33,7 @@ export const createProduct = async (req: Request, res: Response) => {
         const product = await Product.create(req.body);
         res.status(201).json({ data: product, message: 'Product created successfully' });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error', error });
     }
 };
 
