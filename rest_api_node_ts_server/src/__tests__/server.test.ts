@@ -26,5 +26,8 @@ describe('GET /api', () => {
         expect(response.statusCode).toBe(200);
         expect(response.headers['content-type']).toMatch(/json/);
         expect(response.body.message).toBe('Desde API');
+
+        expect(response.status).not.toBe(404);
+        expect(response.body.message).not.toBeNull();
     });
 });
