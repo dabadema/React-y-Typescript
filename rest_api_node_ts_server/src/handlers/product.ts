@@ -14,13 +14,16 @@ export const getProducts = async (req: Request, res: Response) => {
     }
 };
 
-export const getProductById = async (req: Request, res: Response) => {
+export const getProductById = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const product = await Product.findByPk(id);
+
         if (!product) {
             res.status(404).json({ message: 'Product not found' });
+            return;
         }
+
         res.json({ data: product });
     } catch (error) {
         console.log(error);
@@ -28,12 +31,18 @@ export const getProductById = async (req: Request, res: Response) => {
     }
 };
 
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (req: Request, res: Response): Promise<void> => {
     try {
         const product = await Product.create(req.body);
-        res.status(201).json({ data: product, message: 'Product created successfully' });
+        res.status(201).json({
+            data: product,
+            message: 'Product created successfully',
+        });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error });
+        res.status(500).json({
+            message: 'Internal server error',
+            error,
+        });
     }
 };
 
