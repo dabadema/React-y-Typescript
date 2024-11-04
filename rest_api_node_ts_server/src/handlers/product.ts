@@ -46,11 +46,12 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
     }
 };
 
-export const updateProduct = async (req: Request, res: Response) => {
+export const updateProduct = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const product = await Product.findByPk(id);
     if (!product) {
         res.status(404).json({ message: 'Product not found' });
+        return;
     }
 
     await product.update(req.body);
