@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app, { startServer, closeServer } from '../server';
+import app, { startServer, closeServer, connectDB } from '../server';
 import db from '../config/db';
 
 describe('GET /api', () => {
@@ -29,5 +29,19 @@ describe('GET /api', () => {
 
         expect(response.status).not.toBe(404);
         expect(response.body.message).not.toBeNull();
+    });
+});
+
+jest.mock('../config/db');
+
+describe('connectDB', () => {
+    it('Should handle database connection errors', async () => {
+        jest.spyOn(db, 'authenticate').mockRejectedValueOnce(new Error('Failed to connect to DB'));
+
+        const consoleSpy = jest.spyOn(console, 'log');
+
+        await connectDB();
+
+        expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Failed to connect to DB'));
     });
 });

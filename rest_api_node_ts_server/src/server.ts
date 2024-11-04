@@ -5,7 +5,7 @@ import db from './config/db';
 import { Server } from 'http';
 
 //Connect to DB
-async function connectDB() {
+export const connectDB = async () => {
     try {
         await db.authenticate();
         console.log(colors.green('Connected to DB successfully'));
@@ -14,7 +14,7 @@ async function connectDB() {
         console.log(error);
         console.log(colors.red('Failed to connect to DB'));
     }
-}
+};
 
 connectDB();
 
