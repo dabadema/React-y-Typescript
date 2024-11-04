@@ -57,6 +57,11 @@ router.patch(
     updateAvailability
 );
 
-router.delete('/:id', param('id').isInt().withMessage('Id must be a number'), deleteProduct);
+router.delete(
+    '/:id',
+    param('id').isInt().withMessage('Id must be a number'),
+    handleInputErrors,
+    deleteProduct
+);
 
 export default router;
