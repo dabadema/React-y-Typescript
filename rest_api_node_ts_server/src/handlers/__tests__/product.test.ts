@@ -53,6 +53,18 @@ describe('POST /api/products', () => {
     });
 });
 
+describe('GET /api/products', () => {
+    it('Should return all products', async () => {
+        const response = await request(server).get('/api/products');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('data');
+
+        expect(response.status).not.toBe(404);
+        expect(response.body).not.toHaveProperty('errors');
+    });
+});
+
 describe('GET /api/products/:id', () => {
     it('Should return a 404 response if the product is not found', async () => {
         const productId = '20000    ';
@@ -145,6 +157,31 @@ describe('PUT /api/products/:id', () => {
         expect(response.body).toHaveProperty('data');
 
         expect(response.status).not.toBe(404);
+        expect(response.body).not.toHaveProperty('errors');
+    });
+});
+
+describe('PATCH /api/products/:id', () => {
+    it('Should return a 404 response if the product is not found', async () => {
+        const productId = '20000';
+        const response = await request(server).patch(`/api/products/${productId}`);
+
+        expect(response.status).toBe(404);
+        expect(response.body.message).toBe('Product not found');
+
+        expect(response.status).not.toBe(200);
+        expect(response.body).not.toHaveProperty('data');
+    });
+
+    it('Should update the availability of a product', async () => {
+        const response = await request(server).patch('/api/products/1');
+
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveProperty('data');
+        expect(response.body.data.availability).toBe(false);
+
+        expect(response.status).not.toBe(404);
+        expect(response.status).not.toBe(400);
         expect(response.body).not.toHaveProperty('errors');
     });
 });
