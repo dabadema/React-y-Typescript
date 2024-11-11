@@ -94,7 +94,25 @@ router.get(
  *  post:
  *    summary: Creates a new product
  *    tags: [Products]
- *    description: Create a new product with the provided details
+ *    description: Create a new product with the provided details in the database
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *                example: "Monitor Curvo de 49 Pulgadas"
+ *              price:
+ *                type: number
+ *                example: 300
+ *    responses:
+ *      201:
+ *        description: Product created successfully
+ *      400:
+ *        description: Bad request
  */
 router.post(
     '/',
