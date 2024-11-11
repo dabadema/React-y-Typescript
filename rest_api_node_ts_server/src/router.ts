@@ -76,6 +76,10 @@ router.get('/', getProducts);
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Product'
+ *      400:
+ *        description: Bad request
+ *      404:
+ *        description: Product not found
  */
 router.get(
     '/:id',
