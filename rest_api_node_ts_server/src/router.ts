@@ -57,6 +57,25 @@ router.get('/', getProducts);
 
 /**
  * @swagger
+ * /api/products/{id}:
+ *  get:
+ *    summary: Get a product by ID
+ *    tags: [Products]
+ *    description: Return a product based on its unique ID
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: The unique ID of the product
+ *        required: true
+ *        schema:
+ *          type: integer
+ *    responses:
+ *      200:
+ *        description: Successful response with the product
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
  */
 router.get(
     '/:id',
