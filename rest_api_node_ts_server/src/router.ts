@@ -88,6 +88,14 @@ router.get(
     getProductById
 );
 
+/**
+ * @swagger
+ * /api/products:
+ *  post:
+ *    summary: Creates a new product
+ *    tags: [Products]
+ *    description: Create a new product with the provided details
+ */
 router.post(
     '/',
     body('name').notEmpty().withMessage('Name is required'),
