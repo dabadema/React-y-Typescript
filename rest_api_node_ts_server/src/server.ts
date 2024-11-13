@@ -2,7 +2,7 @@ import express from 'express';
 import router from './router';
 import colors from 'colors';
 import swaggerUi from 'swagger-ui-express';
-import { swaggerSpec } from './config/swagger';
+import { swaggerSpec, swaggerUiOptions } from './config/swagger';
 import db from './config/db';
 import { Server } from 'http';
 
@@ -29,7 +29,7 @@ server.use(express.json());
 server.use('/api/products', router);
 
 // Docs
-server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
 
 let appServer: Server | null = null;
 

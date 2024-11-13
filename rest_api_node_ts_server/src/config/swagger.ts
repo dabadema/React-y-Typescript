@@ -1,4 +1,5 @@
 import swaggerJSDoc from 'swagger-jsdoc';
+import { SwaggerUiOptions } from 'swagger-ui-express';
 
 const options: swaggerJSDoc.Options = {
     definition: {
@@ -20,3 +21,11 @@ const options: swaggerJSDoc.Options = {
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
+
+const swaggerUiOptions: SwaggerUiOptions = {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'RestAPI Docs',
+};
+
+export default swaggerSpec;
+export { swaggerUiOptions };
