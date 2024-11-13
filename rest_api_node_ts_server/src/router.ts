@@ -190,7 +190,7 @@ router.put(
  * @swagger
  * /api/products/{id}:
  *  patch:
- *    summary: Updates Product availability by ID
+ *    summary: Updates the product availability by ID
  *    tags: [Products]
  *    description: Returns the product availability
  *    parameters:
@@ -223,6 +223,31 @@ router.patch(
  * @swagger
  * /api/products/{id}:
  *  delete:
+ *    summary: Deletes a product by ID
+ *    tags: [Products]
+ *    description: Returns a confirmation message
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: The unique ID of the product
+ *        required: true
+ *        schema:
+ *          type: integer
+ *    responses:
+ *      200:
+ *        description: Product deleted successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                message:
+ *                  type: string
+ *                  example: "Product deleted successfully"
+ *      400:
+ *        description: Bad request
+ *      404:
+ *        description: Product not found
  */
 router.delete(
     '/:id',
