@@ -186,6 +186,32 @@ router.put(
     updateProduct
 );
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *  patch:
+ *    summary: Updates Product availability by ID
+ *    tags: [Products]
+ *    description: Returns the product availability
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: The unique ID of the product
+ *        required: true
+ *        schema:
+ *          type: integer
+ *    responses:
+ *      200:
+ *        description: Product availability updated successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
+ *      400:
+ *        description: Bad request
+ *      404:
+ *        description: Product not found
+ */
 router.patch(
     '/:id',
     param('id').isInt().withMessage('Id must be a number'),
@@ -193,6 +219,11 @@ router.patch(
     updateAvailability
 );
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *  delete:
+ */
 router.delete(
     '/:id',
     param('id').isInt().withMessage('Id must be a number'),
