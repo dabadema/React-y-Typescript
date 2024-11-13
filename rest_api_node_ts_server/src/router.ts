@@ -128,6 +128,48 @@ router.post(
     createProduct
 );
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *  put:
+ *    summary: Updates a product by ID with user inputs
+ *    tags: [Products]
+ *    description: Update a product by ID with the provided details in the database
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: The unique ID of the product
+ *        required: true
+ *        schema:
+ *          type: integer
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *                example: "Monitor Curvo de 49 Pulgadas"
+ *              price:
+ *                type: number
+ *                example: 300
+ *              availability:
+ *                type: boolean
+ *                example: true
+ *    responses:
+ *      201:
+ *        description: Product updated successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Product'
+ *      400:
+ *        description: Bad request
+ *      404:
+ *        description: Product not found
+ */
 router.put(
     '/:id',
     param('id').isInt().withMessage('Id must be a number'),
