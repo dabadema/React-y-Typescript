@@ -1,8 +1,16 @@
 import { Link, Form } from 'react-router-dom';
 
 export async function action({ request }: { request: Request }) {
-    console.log('desde action');
-    return null;
+    const data = Object.fromEntries(await request.formData());
+
+    let error = '';
+    if (Object.values(data).includes('')) {
+        error = 'Todos los campos son obligatorios';
+    }
+
+    if (error.length) return error;
+
+    return {};
 }
 
 export default function NewProduct() {
@@ -18,7 +26,7 @@ export default function NewProduct() {
                 </Link>
             </div>
 
-            <Form className="mt-10" method="post" action="">
+            <Form className="mt-10" method="post">
                 <div className="mb-4">
                     <label className="text-gray-800" htmlFor="name">
                         Nombre Producto:
