@@ -1,6 +1,9 @@
 import { Link, Form } from 'react-router-dom';
 
-export async function action({ request }: { request: Request }) {}
+export async function action({ request }: { request: Request }) {
+    console.log('desde action');
+    return null;
+}
 
 export default function NewProduct() {
     return (
