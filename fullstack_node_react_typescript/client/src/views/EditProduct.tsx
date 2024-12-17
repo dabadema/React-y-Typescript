@@ -5,13 +5,20 @@ import {
     ActionFunctionArgs,
     redirect,
     LoaderFunctionArgs,
+    useLoaderData,
 } from 'react-router-dom';
 import ErrorMessage from '../components/ErrorMessage';
-import { addProduct } from '../services/ProductService';
+import { addProduct, getProductbyId } from '../services/ProductService';
+import { Product } from '../types';
 
 export async function loader({ params }: LoaderFunctionArgs) {
-    console.log(params.id);
-    return {};
+    if (params.id !== undefined) {
+        const product = await getProductbyId(+params.id);
+        if (!product) {
+            return redirect('/');
+        }
+        return product;
+    }
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -31,6 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function EditProduct() {
+    const product = useLoaderData() as Product;
     const error = useActionData() as string;
 
     return (
@@ -58,6 +66,7 @@ export default function EditProduct() {
                         className="mt-2 block w-full p-3 bg-gray-50"
                         placeholder="Nombre del Producto"
                         name="name"
+                        defaultValue={product.name}
                     />
                 </div>
                 <div className="mb-4">
@@ -70,6 +79,7 @@ export default function EditProduct() {
                         className="mt-2 block w-full p-3 bg-gray-50"
                         placeholder="Precio Producto. ej. 200, 300"
                         name="price"
+                        defaultValue={product.price}
                     />
                 </div>
                 <input
