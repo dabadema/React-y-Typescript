@@ -1,4 +1,11 @@
-import { Link, Form, useActionData, ActionFunctionArgs, redirect } from 'react-router-dom';
+import {
+    Link,
+    Form,
+    useActionData,
+    ActionFunctionArgs,
+    redirect,
+    useLocation,
+} from 'react-router-dom';
 import ErrorMessage from '../components/ErrorMessage';
 import { addProduct } from '../services/ProductService';
 
@@ -20,8 +27,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function EditProduct() {
     const error = useActionData() as string;
+    const { state } = useLocation();
 
-    console.log(error);
+    console.log(state);
 
     return (
         <>
@@ -48,6 +56,7 @@ export default function EditProduct() {
                         className="mt-2 block w-full p-3 bg-gray-50"
                         placeholder="Nombre del Producto"
                         name="name"
+                        defaultValue={state.product.name}
                     />
                 </div>
                 <div className="mb-4">
@@ -60,6 +69,7 @@ export default function EditProduct() {
                         className="mt-2 block w-full p-3 bg-gray-50"
                         placeholder="Precio Producto. ej. 200, 300"
                         name="price"
+                        defaultValue={state.product.price}
                     />
                 </div>
                 <input
