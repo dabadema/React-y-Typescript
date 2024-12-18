@@ -27,12 +27,17 @@ const server = express();
 
 // Connections allowed
 
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'https://product-manager-backend-ds09.onrender.com',
+];
+
 const corsOptions: CorsOptions = {
     origin: function (origin, callback) {
-        if (origin === process.env.FRONTEND_URL) {
+        if (allowedOrigins.includes(origin) || !origin) {
             callback(null, true);
         } else {
-            callback(new Error('Error de CORS'));
+            callback(new Error('No permitido por CORS'));
         }
     },
 };
