@@ -15,4 +15,6 @@ router.post(
 );
 router.get('/', ProjectController.getAllProjects);
 
+router.get('/:id', ProjectController.getProjectById);
+
 export default router;

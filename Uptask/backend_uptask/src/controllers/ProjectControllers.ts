@@ -20,7 +20,15 @@ export class ProjectController {
         } catch (error) {
             console.log(error);
         }
+    };
 
-        res.send('Every project');
+    static getProjectById = async (req: Request, res: Response) => {
+        console.log(req.params);
+        try {
+            const projects = await Project.find({});
+            res.json(projects);
+        } catch (error) {
+            console.log(error);
+        }
     };
 }
