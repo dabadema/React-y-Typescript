@@ -32,4 +32,11 @@ router.put(
     ProjectController.updateProjectById
 );
 
+router.delete(
+    '/:id',
+    param('id').isMongoId().withMessage('ID not valid'),
+    handleInputErrors,
+    ProjectController.deleteProjectById
+);
+
 export default router;
