@@ -22,4 +22,14 @@ router.get(
     ProjectController.getProjectById
 );
 
+router.put(
+    '/:id',
+    param('id').isMongoId().withMessage('ID not valid'),
+    body('projectName').notEmpty().withMessage('Project´s name is mandatory'),
+    body('clientName').notEmpty().withMessage('Client´s name is mandatory'),
+    body('description').notEmpty().withMessage('Project´s description is mandatory'),
+    handleInputErrors,
+    ProjectController.updateProjectById
+);
+
 export default router;
