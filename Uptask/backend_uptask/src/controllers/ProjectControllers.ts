@@ -59,6 +59,11 @@ export class ProjectController {
 
         try {
             const project = await Project.findById(id);
+
+            if (!project) {
+                const error = new Error('Project not found');
+                res.status(404).json({ error: error.message });
+            }
             await project.deleteOne();
 
             res.send('Project deleted');
