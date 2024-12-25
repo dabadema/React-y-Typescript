@@ -41,6 +41,6 @@ router.delete(
 );
 
 /** Routes for tasks */
-router.post('/:projectId/tasks', TaskController.createProject);
+router.post('/:projectId/tasks', TaskController.createTask);
 
 export default router;

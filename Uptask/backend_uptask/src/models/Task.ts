@@ -24,7 +24,7 @@ export const TaskSchema: Schema = new Schema(
             trim: true,
             required: true,
         },
-        descrition: {
+        description: {
             type: String,
             trim: true,
             required: true,
@@ -33,7 +33,6 @@ export const TaskSchema: Schema = new Schema(
             type: Types.ObjectId,
             ref: 'Project',
             trim: true,
-            required: true,
         },
         status: {
             type: String,
