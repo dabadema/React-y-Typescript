@@ -14,7 +14,10 @@ export class TaskController {
         try {
             const task = new Task(req.body);
             task.project = project.id;
+            project.tasks.push(task.id);
+
             await task.save();
+            await project.save();
             res.send('Project created properly');
         } catch (error) {
             console.log(error);
