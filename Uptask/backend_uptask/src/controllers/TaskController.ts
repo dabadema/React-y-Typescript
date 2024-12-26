@@ -12,7 +12,16 @@ export class TaskController {
             await Promise.allSettled([task.save(), req.project.save()]);
             res.send('Task created properly');
         } catch (error) {
-            console.log(error);
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
+
+    static getTasksByProjectId = async (req: Request, res: Response) => {
+        try {
+            const tasks = await Task.find({ project: req.project.id });
+            res.json(tasks);
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
         }
     };
 }
