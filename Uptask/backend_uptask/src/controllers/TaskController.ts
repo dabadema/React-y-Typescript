@@ -24,4 +24,23 @@ export class TaskController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static getTaskById = async (req: Request, res: Response) => {
+        try {
+            const { taskId } = req.params;
+            const task = await Task.findById(taskId).populate('project');
+
+            if (!task) {
+                const error = new Error('Task not found');
+                res.status(404).json({ error: error.message });
+            }
+            if (task.project.id.toString() !== req.project.id) {
+                const error = new Error('Not valid action');
+                res.status(404).json({ error: error.message });
+            }
+            res.json(task);
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }

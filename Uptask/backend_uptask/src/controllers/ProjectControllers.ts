@@ -65,7 +65,6 @@ export class ProjectController {
                 res.status(404).json({ error: error.message });
             }
             await project.deleteOne();
-
             res.send('Project deleted');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
