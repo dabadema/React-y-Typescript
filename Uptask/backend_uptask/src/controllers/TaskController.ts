@@ -62,4 +62,23 @@ export class TaskController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static deleteTaskById = async (req: Request, res: Response) => {
+        try {
+            const { taskId } = req.params;
+            const task = await Task.findById(taskId, req.body);
+
+            if (!task) {
+                const error = new Error('Task not found');
+                res.status(404).json({ error: error.message });
+            }
+
+            req.project.tasks = req.project.tasks.filter((task) => task.id.toString() !== taskId);
+            await Promise.allSettled([task.deleteOne(), req.project.save()]);
+
+            res.send({ message: 'Task deleted properly' });
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }
