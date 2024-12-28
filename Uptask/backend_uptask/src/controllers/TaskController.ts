@@ -33,10 +33,12 @@ export class TaskController {
             if (!task) {
                 const error = new Error('Task not found');
                 res.status(404).json({ error: error.message });
+                return;
             }
-            if (task.project.id.toString() !== req.project.id) {
+            if (task.project.toString() !== req.project.id) {
                 const error = new Error('Not valid action');
                 res.status(404).json({ error: error.message });
+                return;
             }
             res.json(task);
         } catch (error) {
@@ -47,17 +49,22 @@ export class TaskController {
     static updateTaskById = async (req: Request, res: Response) => {
         try {
             const { taskId } = req.params;
-            const task = await Task.findByIdAndUpdate(taskId, req.body).populate('project');
-
+            const task = await Task.findById(taskId);
             if (!task) {
                 const error = new Error('Task not found');
                 res.status(404).json({ error: error.message });
+                return;
             }
-            if (task.project.id.toString() !== req.project.id) {
+            if (task.project.toString() !== req.project.id) {
                 const error = new Error('Not valid action');
-                res.status(404).json({ error: error.message });
+                res.status(400).json({ error: error.message });
+                return;
             }
-            res.send({ message: 'Task updated properly' });
+            task.name = req.body.name;
+            task.description = req.body.description;
+            await task.save();
+
+            res.send('Task updated properly');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
@@ -71,12 +78,13 @@ export class TaskController {
             if (!task) {
                 const error = new Error('Task not found');
                 res.status(404).json({ error: error.message });
+                return;
             }
 
             req.project.tasks = req.project.tasks.filter((task) => task.id.toString() !== taskId);
             await Promise.allSettled([task.deleteOne(), req.project.save()]);
 
-            res.send({ message: 'Task deleted properly' });
+            res.send('Task deleted properly');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
