@@ -4,7 +4,7 @@ import ProjectForm from '@/components/ProjectForm';
 import { ProjectFormData } from 'types';
 
 export default function DashboardView() {
-    const initialValues = {
+    const initialValues: ProjectFormData = {
         projectName: '',
         clientName: '',
         description: '',
