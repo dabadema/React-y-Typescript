@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ProjectForm from '@/components/ProjectForm';
+import { ProjectFormData } from 'types';
 
 export default function DashboardView() {
     const initialValues = {
@@ -15,7 +16,7 @@ export default function DashboardView() {
         formState: { errors },
     } = useForm({ defaultValues: initialValues });
 
-    const handleForm = (data) => {
+    const handleForm = (data: ProjectFormData) => {
         console.log(data);
     };
 
