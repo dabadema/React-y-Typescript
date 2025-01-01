@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Logo from '@/components/Logo';
-import NavMenu from '@/components/NavMenu';
+import NavMenu from '@/components/projects/NavMenu';
 
 export default function AppLayout() {
     return (
