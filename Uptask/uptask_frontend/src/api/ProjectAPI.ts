@@ -30,7 +30,6 @@ export async function getProjects() {
 export async function getProjectById(projectId: Project['_id']) {
     try {
         const { data } = await api.get(`/projects/${projectId}`);
-        console.log(data);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
@@ -47,6 +46,18 @@ type ProjectAPIType = {
 export async function updateProject({ formData, projectId }: ProjectAPIType) {
     try {
         const { data } = await api.put<string>(`/projects/${projectId}`, formData);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error);
+        }
+    }
+}
+
+export async function deleteProject(projectId: Project['_id']) {
+    try {
+        const url = `/projects/${projectId}`;
+        const { data } = await api.delete(url);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
