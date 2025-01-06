@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import TaskForm from './TaskForm';
+import { TaskFormData } from '@/types/index';
 
 export default function AddTaskModal() {
     const navigate = useNavigate();
@@ -10,6 +13,23 @@ export default function AddTaskModal() {
 
     const modalTask = queryParams.get('newTask');
     const showModal = modalTask ? true : false;
+
+    const initialValues: TaskFormData = {
+        name: '',
+        description: '',
+    };
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<TaskFormData>({
+        defaultValues: initialValues,
+    });
+
+    const handleCreateTask = (formData: TaskFormData) => {
+        console.log(formData);
+    };
 
     return (
         <>
@@ -51,6 +71,17 @@ export default function AddTaskModal() {
                                         Fill the form and create {''}
                                         <span className="text-fuchsia-600">a task</span>
                                     </p>
+
+                                    <form className="mt-10 space-y-3" noValidate>
+                                        <TaskForm register={register} errors={errors} />
+
+                                        <input
+                                            type="submit"
+                                            value="Save Task"
+                                            className="bg-fuchsia-600 hover:bg-fuschia-700 font-bold cursor-pointer uppercase transition-colors text-white w-full p-3"
+                                            onClick={handleSubmit(handleCreateTask)}
+                                        />
+                                    </form>
                                 </DialogPanel>
                             </TransitionChild>
                         </div>
