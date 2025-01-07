@@ -21,6 +21,6 @@ export default function EditTaskData() {
     console.log(data);
 
     if (data) {
-        return <EditTaskModal />;
+        return <EditTaskModal data={data} />;
     }
 }
