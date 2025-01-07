@@ -1,16 +1,24 @@
 import { Fragment } from 'react';
 import { Dialog, DialogTitle, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Task, TaskFormData } from '@/types/index';
 import { useForm } from 'react-hook-form';
 import TaskForm from './TaskForm';
+import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateTask } from '@/api/TaskAPI';
 
 type EditTaskModalProps = {
     data: Task;
+    taskId: Task['_id'];
 };
 
-export default function EditTaskModal({ data }: EditTaskModalProps) {
+export default function EditTaskModal({ data, taskId }: EditTaskModalProps) {
     const navigate = useNavigate();
+
+    /** Reading projectId */
+    const params = useParams();
+    const projectId = params.projectId!;
 
     const {
         register,
@@ -24,8 +32,29 @@ export default function EditTaskModal({ data }: EditTaskModalProps) {
         },
     });
 
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: updateTask,
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
+            queryClient.invalidateQueries({ queryKey: ['task', taskId] });
+            toast.success(data);
+            reset();
+            navigate(location.pathname, { replace: true });
+        },
+    });
+
     const handleEditTask = (formData: TaskFormData) => {
-        console.log(formData);
+        const data = {
+            projectId,
+            taskId,
+            formData,
+        };
+        mutate(data);
     };
 
     return (
@@ -62,12 +91,12 @@ export default function EditTaskModal({ data }: EditTaskModalProps) {
                         >
                             <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                                 <DialogTitle as="h3" className="font-black text-4xl  my-5">
-                                    Editar Tarea
+                                    Edit Task
                                 </DialogTitle>
 
                                 <p className="text-xl font-bold">
-                                    Realiza cambios a una tarea en {''}
-                                    <span className="text-fuchsia-600">este formulario</span>
+                                    Make changes to a task in {''}
+                                    <span className="text-fuchsia-600">this form</span>
                                 </p>
 
                                 <form
@@ -80,7 +109,7 @@ export default function EditTaskModal({ data }: EditTaskModalProps) {
                                     <input
                                         type="submit"
                                         className=" bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
-                                        value="Guardar Tarea"
+                                        value="Save Task"
                                     />
                                 </form>
                             </DialogPanel>
