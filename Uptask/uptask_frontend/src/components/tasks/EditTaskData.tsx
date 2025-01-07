@@ -1,11 +1,26 @@
 import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getTaskById } from '@/api/TaskAPI';
+import EditTaskModal from './EditTaskModal';
 
 export default function EditTaskData() {
+    const params = useParams();
+    const projectId = params.projectId!;
+
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const editTask = queryParams.get('editTask');
+    const taskId = queryParams.get('editTask')!;
 
-    console.log(editTask);
+    const { data } = useQuery({
+        queryKey: ['task', taskId],
+        queryFn: () => getTaskById({ projectId, taskId }),
+        enabled: !!taskId,
+    });
 
-    return <div>EditTaskData</div>;
+    console.log(data);
+
+    if (data) {
+        return <EditTaskModal />;
+    }
 }
