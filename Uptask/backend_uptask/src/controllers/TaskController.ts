@@ -12,7 +12,7 @@ export class TaskController {
             await Promise.allSettled([task.save(), req.project.save()]);
             res.send('Task created properly');
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' });
+            res.status(500).json({ error: 'Task not created' });
         }
     };
 
@@ -21,7 +21,7 @@ export class TaskController {
             const tasks = await Task.find({ project: req.project.id }).populate('project');
             res.json(tasks);
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' });
+            res.status(500).json({ error: 'Tasks not found' });
         }
     };
 
@@ -34,7 +34,7 @@ export class TaskController {
             }
             res.json(req.task);
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' });
+            res.status(500).json({ error: 'Task not found' });
         }
     };
 
@@ -46,7 +46,7 @@ export class TaskController {
 
             res.send('Task updated properly');
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' });
+            res.status(500).json({ error: 'Task not updated' });
         }
     };
 
@@ -59,7 +59,7 @@ export class TaskController {
 
             res.send('Task deleted properly');
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' });
+            res.status(500).json({ error: 'Task not deleted' });
         }
     };
 
@@ -71,7 +71,7 @@ export class TaskController {
 
             res.send('Task status updated properly');
         } catch (error) {
-            res.status(500).json({ error: 'There was an error' });
+            res.status(500).json({ error: 'Task status not updated' });
         }
     };
 }

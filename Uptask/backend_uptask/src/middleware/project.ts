@@ -22,7 +22,7 @@ export async function projectExists(req: Request, res: Response, next: NextFunct
         req.project = project;
         next();
     } catch (error) {
-        res.status(500).json({ error: 'There was an error' });
+        res.status(500).json({ error: 'Project Id format not valid' });
         return;
     }
 }
