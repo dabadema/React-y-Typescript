@@ -63,3 +63,19 @@ export async function deleteTaskById({ projectId, taskId }: Pick<TaskAPI, 'proje
         }
     }
 }
+
+export async function updateStatusTask({
+    projectId,
+    taskId,
+    status,
+}: Pick<TaskAPI, 'projectId' | 'taskId' | 'status'>) {
+    try {
+        const url = `/projects/${projectId}/tasks/${taskId}/status`;
+        const { data } = await api.post<string>(url, { status });
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error);
+        }
+    }
+}
