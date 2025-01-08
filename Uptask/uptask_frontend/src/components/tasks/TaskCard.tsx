@@ -21,7 +21,7 @@ export default function TaskCard({ task }: TaskCardProps) {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation({
-        mutationFn: () => deleteTaskById({ projectId, taskId: task._id }),
+        mutationFn: deleteTaskById,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['editProject', projectId] });
             toast.success(data);
@@ -83,7 +83,7 @@ export default function TaskCard({ task }: TaskCardProps) {
                                 <button
                                     type="button"
                                     className="block px-3 py-1 text-sm leading-6 text-red-500"
-                                    onClick={() => mutate()}
+                                    onClick={() => mutate({ projectId, taskId: task._id })}
                                 >
                                     Delete Task
                                 </button>
