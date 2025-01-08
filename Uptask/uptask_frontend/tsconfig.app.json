@@ -14,7 +14,8 @@
             "@/api/*": ["api/*"],
             "@/lib/*": ["lib/*"],
             "@/types/*": ["types/*"],
-            "@/utils/*": ["utils/*"]
+            "@/utils/*": ["utils/*"],
+            "@/locales/*": ["locales/*"]
         },
 
         /* Bundler mode */
