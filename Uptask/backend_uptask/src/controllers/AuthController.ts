@@ -15,9 +15,10 @@ export class AuthController {
                 return;
             }
 
+            /** Creating a new user */
             const user = new User(req.body);
 
-            // Hash password
+            /** Hashing password */
             user.password = await hashPassword(password);
 
             await user.save();
