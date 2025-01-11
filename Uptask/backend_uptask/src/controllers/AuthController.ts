@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
-import { hashPassword } from '../utils/auth';
+import { comparePassword, hashPassword } from '../utils/auth';
 import { generateToken } from '../utils/token';
 import Token from '../models/Token';
 import { AuthEmail } from '../emails/AuthEmail';
@@ -85,6 +85,14 @@ export class AuthController {
                 const error = new Error(
                     'User account has not been confirmed, please check your email for confirmation'
                 );
+                res.status(401).json({ error: error.message });
+                return;
+            }
+
+            //Checking if password is correct
+            const isPasswordCorrect = await comparePassword(password, user.password);
+            if (!isPasswordCorrect) {
+                const error = new Error('Invalid password');
                 res.status(401).json({ error: error.message });
                 return;
             }
