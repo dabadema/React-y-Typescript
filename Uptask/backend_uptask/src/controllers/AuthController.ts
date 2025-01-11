@@ -60,4 +60,20 @@ export class AuthController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static login = async (req: Request, res: Response) => {
+        try {
+            const { email, password } = req.body;
+            const user = await User.findOne({ email });
+            if (!user) {
+                const error = new Error('User not found');
+                res.status(401).json({ error: error.message });
+                return;
+            if ()
+            }
+            res.send('User logged in successfully');
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }
