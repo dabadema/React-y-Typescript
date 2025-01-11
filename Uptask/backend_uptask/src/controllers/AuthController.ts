@@ -52,7 +52,10 @@ export class AuthController {
                 res.status(401).json({ error: error.message });
                 return;
             }
-            console.log(tokenExists);
+            const user = await User.findById(tokenExists.userId);
+            user.confirmed = true;
+            await Promise.allSettled([user.save(), tokenExists.deleteOne()]);
+            res.send('Account confirmed successfully');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
