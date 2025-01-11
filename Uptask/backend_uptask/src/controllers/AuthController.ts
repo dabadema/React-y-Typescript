@@ -42,4 +42,19 @@ export class AuthController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static confirmAccount = async (req: Request, res: Response) => {
+        try {
+            const { token } = req.body;
+            const tokenExists = await Token.findOne({ token });
+            if (!tokenExists) {
+                const error = new Error('Token not found');
+                res.status(401).json({ error: error.message });
+                return;
+            }
+            console.log(tokenExists);
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }
