@@ -67,10 +67,28 @@ export class AuthController {
             const user = await User.findOne({ email });
             if (!user) {
                 const error = new Error('User not found');
+                res.status(404).json({ error: error.message });
+                return;
+            }
+            if (!user.confirmed) {
+                const token = new Token();
+                token.userId = user.id;
+                token.token = generateToken();
+                await token.save();
+
+                await AuthEmail.sendConfirmationEmail({
+                    email: user.email,
+                    name: user.name,
+                    token: token.token,
+                });
+
+                const error = new Error(
+                    'User account has not been confirmed, please check your email for confirmation'
+                );
                 res.status(401).json({ error: error.message });
                 return;
-            if ()
             }
+
             res.send('User logged in successfully');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
