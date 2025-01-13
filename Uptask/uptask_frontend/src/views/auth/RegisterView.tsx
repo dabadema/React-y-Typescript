@@ -2,6 +2,9 @@ import { useForm } from 'react-hook-form';
 import { UserRegistrationForm } from '@/types/index';
 import ErrorMessage from '@/components/ErrorMessage';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { createAccount } from '@/api/AuthAPI';
 
 export default function RegisterView() {
     const initialValues: UserRegistrationForm = {
@@ -19,9 +22,23 @@ export default function RegisterView() {
         formState: { errors },
     } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
 
+    const { mutate } = useMutation({
+        mutationFn: createAccount,
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        onSuccess: (data) => {
+            toast.success(data);
+            reset();
+        },
+    });
+
     const password = watch('password');
 
-    const handleRegister = (formData: UserRegistrationForm) => {};
+    const handleRegister = (formData: UserRegistrationForm) => {
+        console.log('Form data:', formData);
+        mutate(formData);
+    };
 
     return (
         <>
@@ -36,7 +53,7 @@ export default function RegisterView() {
                 className="space-y-8 p-10 rounded-lg bg-white mt-10"
                 noValidate
             >
-                <div className="flex flex-col gap-5 border ">
+                <div className="flex flex-col gap-5 ">
                     <label className="font-normal text-2xl" htmlFor="email">
                         Email
                     </label>
