@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { UserLoginForm } from '@/types/index';
 import ErrorMessage from '@/components/ErrorMessage';
+import { Link } from 'react-router-dom';
 
 export default function LoginView() {
     const initialValues: UserLoginForm = {
@@ -19,7 +20,7 @@ export default function LoginView() {
         <>
             <form
                 onSubmit={handleSubmit(handleLogin)}
-                className="space-y-8 p-10 bg-white"
+                className="space-y-8 p-10 bg-white rounded-lg"
                 noValidate
             >
                 <div className="flex flex-col gap-5">
@@ -61,6 +62,12 @@ export default function LoginView() {
                     className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
                 />
             </form>
+            <nav className="mt-8 flex flex-col space-y-4">
+                <Link to={'/auth/register'} className="text-center text-gray-300 font-normal">
+                    {' '}
+                    Still does not have an account? Create one!{' '}
+                </Link>
+            </nav>
         </>
     );
 }
