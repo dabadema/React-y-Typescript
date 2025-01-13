@@ -1,6 +1,17 @@
 import { Link } from 'react-router-dom';
+import { PinInput, PinInputField } from '@chakra-ui/pin-input';
+import { useState } from 'react';
+import { ConfirmToken } from '@/types/index';
 
 export default function ConfirmedAccountView() {
+    const [token, setToken] = useState<ConfirmToken['token']>('');
+
+    const handleChange = (token: ConfirmToken['token']) => {
+        setToken(token);
+    };
+
+    const handleComplete = (token: ConfirmToken['token']) => {};
+
     return (
         <>
             <h1 className="text-5xl font-black text-white">Confirm your account</h1>
@@ -10,6 +21,16 @@ export default function ConfirmedAccountView() {
             </p>
             <form className="space-y-8 p-10 bg-white mt-10 rounded-xl">
                 <label className="font-normal text-2xl text-center block">6 digits code</label>
+                <div className="flex justify-center gap-5">
+                    <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
+                        <PinInputField className="w-10 h-10 p-3 rounded-lg border-gray-300 placeholder-white" />
+                        <PinInputField className="w-10 h-10 p-3 rounded-lg border-gray-300 placeholder-white" />
+                        <PinInputField className="w-10 h-10 p-3 rounded-lg border-gray-300 placeholder-white" />
+                        <PinInputField className="w-10 h-10 p-3 rounded-lg border-gray-300 placeholder-white" />
+                        <PinInputField className="w-10 h-10 p-3 rounded-lg border-gray-300 placeholder-white" />
+                        <PinInputField className="w-10 h-10 p-3 rounded-lg border-gray-300 placeholder-white" />
+                    </PinInput>
+                </div>
             </form>
 
             <nav className="mt-10 flex flex-col space-y-4">
