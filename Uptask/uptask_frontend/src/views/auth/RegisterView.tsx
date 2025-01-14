@@ -135,6 +135,13 @@ export default function RegisterView() {
                     {' '}
                     Already have an account? Sign in!{' '}
                 </Link>
+                <Link
+                    to={'/auth/forgot-password'}
+                    className="text-center text-gray-300 font-normal"
+                >
+                    {' '}
+                    Did you forget your password ? Set a new one!{' '}
+                </Link>
             </nav>
         </>
     );
