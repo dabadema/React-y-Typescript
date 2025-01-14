@@ -139,4 +139,35 @@ export class AuthController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static forgotPassword = async (req: Request, res: Response) => {
+        try {
+            const { email } = req.body;
+
+            /** Does the user exists? */
+            const user = await User.findOne({ email });
+            if (!user) {
+                const error = new Error('User it is not registered');
+                res.status(404).json({ error: error.message });
+                return;
+            }
+
+            /** Generating a token */
+            const token = new Token();
+            token.token = generateToken();
+            token.userId = user.id;
+            await token.save();
+
+            /** Sending confirmation email */
+            await AuthEmail.sendPasswordResetToken({
+                email: user.email,
+                name: user.name,
+                token: token.token,
+            });
+
+            res.send('Check your email for instructions');
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }
