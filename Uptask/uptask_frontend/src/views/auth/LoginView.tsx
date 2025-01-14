@@ -3,7 +3,7 @@ import { UserLoginForm } from '@/types/index';
 import ErrorMessage from '@/components/ErrorMessage';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { AuthenticateUser } from '@/api/AuthAPI';
+import { authenticateUser } from '@/api/AuthAPI';
 import { toast } from 'react-toastify';
 
 export default function LoginView() {
@@ -18,7 +18,7 @@ export default function LoginView() {
     } = useForm({ defaultValues: initialValues });
 
     const { mutate } = useMutation({
-        mutationFn: AuthenticateUser,
+        mutationFn: authenticateUser,
         onError: (error) => {
             toast.error(error.message);
         },
