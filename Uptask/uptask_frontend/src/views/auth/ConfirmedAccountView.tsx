@@ -49,7 +49,7 @@ export default function ConfirmedAccountView() {
             </form>
 
             <nav className="mt-10 flex flex-col space-y-4">
-                <Link to="/auth/new-code" className="text-center text-gray-300 font-normal">
+                <Link to="/auth/request-code" className="text-center text-gray-300 font-normal">
                     Request a new code
                 </Link>
             </nav>
