@@ -28,7 +28,7 @@ export class AuthEmail {
             to: user.email,
             subject: 'UpTask - Set a new password',
             text: `UpTask - Set a new password`,
-            html: `<p>Hi ${user.name},</p> <p> You have requested to set a new password.</p> <p> Visit the following link: <a href="${process.env.FRONTEND_URL}/auth/forgot-password ">Set a new password</a>
+            html: `<p>Hi ${user.name},</p> <p> You have requested to set a new password.</p> <p> Visit the following link: <a href="${process.env.FRONTEND_URL}/auth/new-password ">Set a new password</a>
             and introduce the code: <b>${user.token}</b> to complete the process.</p>
             <p> This token will expire in 10 minutes.</p>`,
         });
