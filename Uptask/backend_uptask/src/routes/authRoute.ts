@@ -53,4 +53,11 @@ router.post(
     AuthController.forgotPassword
 );
 
+router.post(
+    '/validate-token',
+    body('token').notEmpty().withMessage('Token is required'),
+    handleInputErrors,
+    AuthController.validateToken
+);
+
 export default router;
