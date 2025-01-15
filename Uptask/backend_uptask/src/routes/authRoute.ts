@@ -24,7 +24,11 @@ router.post(
 
 router.post(
     '/confirm-account',
-    body('token').notEmpty().withMessage('Token is required'),
+    body('token')
+        .notEmpty()
+        .withMessage('Token is required')
+        .isLength({ min: 6, max: 6 })
+        .withMessage('Must be exactly 6 characters'),
     handleInputErrors,
     AuthController.confirmAccount
 );
@@ -55,7 +59,11 @@ router.post(
 
 router.post(
     '/validate-token',
-    body('token').notEmpty().withMessage('Token is required'),
+    body('token')
+        .notEmpty()
+        .withMessage('Token is required')
+        .isLength({ min: 6, max: 6 })
+        .withMessage('Must be exactly 6 characters'),
     handleInputErrors,
     AuthController.validateToken
 );
