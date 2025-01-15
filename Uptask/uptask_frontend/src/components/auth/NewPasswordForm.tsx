@@ -1,9 +1,16 @@
-import type { NewPasswordForm } from '../../types';
+import type { ConfirmToken, NewPasswordForm } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '@/components/ErrorMessage';
+import { useMutation } from '@tanstack/react-query';
+import { updatePasswordWithToken } from '@/api/AuthAPI';
+import { toast } from 'react-toastify';
 
-export default function NewPasswordForm() {
+type NewPasswordFormProps = {
+    token: ConfirmToken['token'];
+};
+
+export default function NewPasswordForm({ token }: NewPasswordFormProps) {
     const navigate = useNavigate();
     const initialValues: NewPasswordForm = {
         password: '',
@@ -17,7 +24,25 @@ export default function NewPasswordForm() {
         formState: { errors },
     } = useForm({ defaultValues: initialValues });
 
-    const handleNewPassword = (formData: NewPasswordForm) => {};
+    const { mutate } = useMutation({
+        mutationFn: updatePasswordWithToken,
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        onSuccess: (data) => {
+            toast.success(data);
+            reset();
+            navigate('/auth/login');
+        },
+    });
+
+    const handleNewPassword = (formData: NewPasswordForm) => {
+        const data = {
+            formData,
+            token,
+        };
+        mutate(data);
+    };
 
     const password = watch('password');
 
@@ -25,7 +50,7 @@ export default function NewPasswordForm() {
         <>
             <form
                 onSubmit={handleSubmit(handleNewPassword)}
-                className="space-y-8 p-10  bg-white mt-10"
+                className="space-y-8 p-10 rounded-lg bg-white mt-10"
                 noValidate
             >
                 <div className="flex flex-col gap-5">
@@ -68,7 +93,7 @@ export default function NewPasswordForm() {
 
                 <input
                     type="submit"
-                    value="Set Password"
+                    value="Set new Password"
                     className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
                 />
             </form>
