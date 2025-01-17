@@ -5,6 +5,11 @@ export class ProjectController {
     static createProject = async (req: Request, res: Response) => {
         const project = new Project(req.body);
 
+        // Asigning project manager
+        project.manager = req.user.id;
+
+        console.log(req.user);
+
         try {
             await project.save();
             res.send('Project created properly');
