@@ -9,16 +9,17 @@ import { authenticate } from '../middleware/auth';
 
 const router = Router();
 
+router.use(authenticate);
+
 router.post(
     '/',
-    authenticate,
     body('projectName').notEmpty().withMessage('Project´s name is mandatory'),
     body('clientName').notEmpty().withMessage('Client´s name is mandatory'),
     body('description').notEmpty().withMessage('Project´s description is mandatory'),
     handleInputErrors,
     ProjectController.createProject
 );
-router.get('/', authenticate, ProjectController.getAllProjects);
+router.get('/', ProjectController.getAllProjects);
 
 router.get(
     '/:id',
