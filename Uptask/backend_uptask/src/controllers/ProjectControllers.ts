@@ -25,8 +25,10 @@ export class ProjectController {
                 $or: [{ manager: { $in: req.user.id } }],
             });
             res.json(projects);
+            return;
         } catch (error) {
             res.status(500).json({ error: 'Projects not found' });
+            return;
         }
     };
 
