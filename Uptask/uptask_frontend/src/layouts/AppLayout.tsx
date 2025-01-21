@@ -15,29 +15,30 @@ export default function AppLayout() {
         return <Navigate to="/auth/login" />;
     }
 
-    return (
-        <>
-            <header className="bg-gray-800 text-white py-5">
-                <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center">
-                    <div className="w-64">
-                        <Link to="/">
-                            <Logo />
-                        </Link>
+    if (data)
+        return (
+            <>
+                <header className="bg-gray-800 text-white py-5">
+                    <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center">
+                        <div className="w-64">
+                            <Link to="/">
+                                <Logo />
+                            </Link>
+                        </div>
+                        <NavMenu />
                     </div>
-                    <NavMenu />
-                </div>
-            </header>
+                </header>
 
-            <section className="max-w-screen-2xl mx-auto mt-10 p-5">
-                <Outlet />
-            </section>
+                <section className="max-w-screen-2xl mx-auto mt-10 p-5">
+                    <Outlet />
+                </section>
 
-            <footer className="py-5">
-                <p className="text-center text-gray-500">
-                    Todos los derechos reservados {new Date().getFullYear()}
-                </p>
-            </footer>
-            <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} autoClose={5000} />
-        </>
-    );
+                <footer className="py-5">
+                    <p className="text-center text-gray-500">
+                        Todos los derechos reservados {new Date().getFullYear()}
+                    </p>
+                </footer>
+                <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} autoClose={5000} />
+            </>
+        );
 }
