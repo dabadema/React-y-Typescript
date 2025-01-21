@@ -23,7 +23,6 @@ export default function DashboardView() {
     });
 
     if (isLoading) return <div>Loading...</div>;
-    console.log(data);
 
     if (data)
         return (

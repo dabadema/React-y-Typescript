@@ -35,7 +35,7 @@ export default function AppLayout() {
 
                 <footer className="py-5">
                     <p className="text-center text-gray-500">
-                        Todos los derechos reservados {new Date().getFullYear()}
+                        All rights reserved. {new Date().getFullYear()}
                     </p>
                 </footer>
                 <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} autoClose={5000} />
