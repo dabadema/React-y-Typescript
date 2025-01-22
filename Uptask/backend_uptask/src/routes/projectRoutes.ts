@@ -103,6 +103,8 @@ router.post(
     TeamMemberController.findMemberById
 );
 
+router.get('/:projectId/team', TeamMemberController.getProjectTeam);
+
 router.post(
     '/:projectId/team',
     body('_id').isMongoId().withMessage('Not valid ID'),
