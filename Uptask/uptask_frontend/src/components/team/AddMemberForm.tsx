@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import ErrorMessage from '../ErrorMessage';
 import { TeamMemberForm } from '@/types/index';
+import { findUserByEmail } from '@/api/TeamAPI';
 
 export default function AddMemberForm() {
     const initialValues: TeamMemberForm = {
@@ -18,16 +19,21 @@ export default function AddMemberForm() {
         formState: { errors },
     } = useForm({ defaultValues: initialValues });
 
-    const mutation = useMutation({});
+    const mutation = useMutation({
+        mutationFn: findUserByEmail,
+    });
 
-    const handleSearchUser = async () => {};
+    const handleSearchUser = async (formData: TeamMemberForm) => {
+        const data = { projectId, formData };
+        mutation.mutate(data);
+    };
 
     return (
         <>
             <form className="mt-10 space-y-5" onSubmit={handleSubmit(handleSearchUser)} noValidate>
                 <div className="flex flex-col gap-3">
                     <label className="font-normal text-2xl" htmlFor="name">
-                        E-mail de Usuario
+                        User email
                     </label>
                     <input
                         id="name"
@@ -35,7 +41,7 @@ export default function AddMemberForm() {
                         placeholder="E-mail"
                         className="w-full p-3  border-gray-300 border"
                         {...register('email', {
-                            required: 'Email ir required',
+                            required: 'Email is required',
                             pattern: {
                                 value: /\S+@\S+\.\S+/,
                                 message: 'Not valid E-mail',
@@ -51,6 +57,11 @@ export default function AddMemberForm() {
                     value="User search"
                 />
             </form>
+
+            <div className="mt-10">
+                {mutation.isPending && <p className="text-center"> Loading...</p>}
+                {mutation.error && <p className="text-center">{mutation.error.message}</p>}
+            </div>
         </>
     );
 }
