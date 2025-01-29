@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import ErrorMessage from '../ErrorMessage';
 import { TeamMemberForm } from '@/types/index';
@@ -10,6 +10,9 @@ export default function AddMemberForm() {
     const initialValues: TeamMemberForm = {
         email: '',
     };
+
+    const navigate = useNavigate();
+
     const params = useParams();
     const projectId = params.projectId!;
 
@@ -27,6 +30,12 @@ export default function AddMemberForm() {
     const handleSearchUser = async (formData: TeamMemberForm) => {
         const data = { projectId, formData };
         mutation.mutate(data);
+    };
+
+    const resetData = () => {
+        reset();
+        mutation.reset();
+        navigate(location.pathname, { replace: true });
     };
 
     return (
@@ -62,7 +71,7 @@ export default function AddMemberForm() {
             <div className="mt-10">
                 {mutation.isPending && <p className="text-center"> Loading...</p>}
                 {mutation.error && <p className="text-center">{mutation.error.message}</p>}
-                {mutation.data && <SearchResult user={mutation.data} />}
+                {mutation.data && <SearchResult user={mutation.data} reset={resetData} />}
             </div>
         </>
     );
