@@ -42,7 +42,10 @@ export class ProjectController {
                 const error = new Error('Project not found');
                 res.status(404).json({ error: error.message });
             }
-            if (project.manager.toString() !== req.user.id.toString()) {
+            if (
+                project.manager.toString() !== req.user.id.toString() &&
+                !project.team.includes(req.user.id)
+            ) {
                 const error = new Error('Not valid action');
                 res.status(404).json({ error: error.message });
             }
