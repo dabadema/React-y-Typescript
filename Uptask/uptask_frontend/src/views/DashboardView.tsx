@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject, getProjects } from '@/api/ProjectAPI';
 import { toast } from 'react-toastify';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function DashboardView() {
+    const { data: user, isLoading: authLogin } = useAuth();
+
     const { data, isLoading } = useQuery({ queryKey: ['projects'], queryFn: getProjects });
 
     const queryClient = useQueryClient();
@@ -22,9 +25,9 @@ export default function DashboardView() {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading && authLogin) return <div>Loading...</div>;
 
-    if (data)
+    if (data && user)
         return (
             <>
                 <h1 className="text-5xl font-black">My projects</h1>
@@ -93,25 +96,30 @@ export default function DashboardView() {
                                                         View Project
                                                     </Link>
                                                 </MenuItem>
-                                                <MenuItem>
-                                                    <Link
-                                                        to={`/projects/${project._id}/edit`}
-                                                        className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                                                    >
-                                                        Edit Project
-                                                    </Link>
-                                                </MenuItem>
-                                                <MenuItem>
-                                                    <button
-                                                        type="button"
-                                                        className="block px-3 py-1 text-sm leading-6 text-red-500"
-                                                        onClick={() => {
-                                                            mutate(project._id);
-                                                        }}
-                                                    >
-                                                        Delete Project
-                                                    </button>
-                                                </MenuItem>
+
+                                                {project.manager === user._id && (
+                                                    <>
+                                                        <MenuItem>
+                                                            <Link
+                                                                to={`/projects/${project._id}/edit`}
+                                                                className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                                                            >
+                                                                Edit Project
+                                                            </Link>
+                                                        </MenuItem>
+                                                        <MenuItem>
+                                                            <button
+                                                                type="button"
+                                                                className="block px-3 py-1 text-sm leading-6 text-red-500"
+                                                                onClick={() => {
+                                                                    mutate(project._id);
+                                                                }}
+                                                            >
+                                                                Delete Project
+                                                            </button>
+                                                        </MenuItem>
+                                                    </>
+                                                )}
                                             </MenuItems>
                                         </Transition>
                                     </Menu>
