@@ -22,7 +22,7 @@ export class ProjectController {
         try {
             const projects = await Project.find({
                 //Conditional to just bring projects which the user is manager
-                $or: [{ manager: { $in: req.user.id } }],
+                $or: [{ manager: { $in: req.user.id } }, { team: { $in: req.user.id } }],
             });
             res.json(projects);
             return;
