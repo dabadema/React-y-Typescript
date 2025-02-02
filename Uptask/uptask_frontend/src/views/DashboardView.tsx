@@ -46,7 +46,7 @@ export default function DashboardView() {
                 {data.length ? (
                     <ul
                         role="list"
-                        className="divide-y-8 border border-gray-100 mt-10 bg-white shadow-lg"
+                        className="divide-y-4 border border-gray-100 mt-10 bg-white shadow-lg"
                     >
                         {data.map((project) => (
                             <li
