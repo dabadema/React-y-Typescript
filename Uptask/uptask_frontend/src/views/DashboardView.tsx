@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function DashboardView() {
-    const { data: user, isLoading: authLogin } = useAuth();
+    const { data: user, isLoading: authLoading } = useAuth();
 
     const { data, isLoading } = useQuery({ queryKey: ['projects'], queryFn: getProjects });
 
@@ -25,7 +25,7 @@ export default function DashboardView() {
         },
     });
 
-    if (isLoading && authLogin) return <div>Loading...</div>;
+    if (isLoading && authLoading) return <div>Loading...</div>;
 
     if (data && user)
         return (
