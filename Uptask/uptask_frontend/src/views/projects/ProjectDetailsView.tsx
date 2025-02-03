@@ -58,7 +58,7 @@ export default function ProjectDetailsView() {
                     </nav>
                 )}
 
-                <TaskList tasks={data.tasks} />
+                <TaskList tasks={data.tasks} canEdit={canEdit} />
                 <AddTaskModal />
                 <EditTaskData />
                 <TaskModalDetails />
