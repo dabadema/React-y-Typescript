@@ -110,7 +110,7 @@ export default function DashboardView() {
                                                     </Link>
                                                 </MenuItem>
 
-                                                {project.manager === user._id && (
+                                                {isManager(project.manager, user._id) && (
                                                     <>
                                                         <MenuItem>
                                                             <Link
