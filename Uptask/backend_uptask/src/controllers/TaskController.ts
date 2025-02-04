@@ -27,12 +27,12 @@ export class TaskController {
 
     static getTaskById = async (req: Request, res: Response) => {
         try {
-            if (req.task.project.toString() !== req.project.id) {
-                const error = new Error('Not valid action');
-                res.status(404).json({ error: error.message });
-                return;
-            }
-            res.json(req.task);
+            const task = await Task.findById(req.task.id).populate({
+                path: 'completedBy',
+                select: 'id name email',
+            });
+
+            res.json(task);
         } catch (error) {
             res.status(500).json({ error: 'Task not found' });
         }
