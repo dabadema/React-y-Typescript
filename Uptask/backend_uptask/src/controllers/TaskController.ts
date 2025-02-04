@@ -67,6 +67,7 @@ export class TaskController {
         try {
             const { status } = req.body;
             req.task.status = status;
+            req.task.completedBy = req.user.id;
             await req.task.save();
 
             res.send('Task status updated properly');
