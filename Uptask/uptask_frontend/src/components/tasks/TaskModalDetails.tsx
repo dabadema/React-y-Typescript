@@ -111,7 +111,9 @@ export default function TaskModalDetails() {
                                             {data.description}
                                         </p>
 
-                                        <p className="text-lg text-slate-500 mb-2">Change log</p>
+                                        <p className="text-lg text-slate-500 mb-2 underline">
+                                            Change log:
+                                        </p>
 
                                         {data.completedBy.map((activityLog) => (
                                             <p key={activityLog._id}>
