@@ -72,7 +72,7 @@ export class TaskController {
             } else {
                 req.task.completedBy = req.user.id;
             }
-            req.task.completedBy = req.user.id;
+
             await req.task.save();
 
             res.send('Task status updated properly');
