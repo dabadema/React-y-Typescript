@@ -115,8 +115,7 @@ export default function TaskModalDetails() {
                                             <p>
                                                 <span className="font-bold text-slate-600">
                                                     Status updated by:
-                                                </span>
-                                                {''}
+                                                </span>{' '}
                                                 {data.completedBy.name}
                                             </p>
                                         )}
