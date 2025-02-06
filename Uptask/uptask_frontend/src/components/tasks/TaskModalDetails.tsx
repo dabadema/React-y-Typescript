@@ -111,11 +111,11 @@ export default function TaskModalDetails() {
                                             {data.description}
                                         </p>
 
-                                        <p className="text-xl text-slate-500 mb-2 underline">
+                                        <p className="text-xl text-slate-500 mt-4 underline">
                                             Change log:
                                         </p>
 
-                                        <ul className="list-decimal">
+                                        <ul className="list-decimal my-4">
                                             {data.completedBy.map((activityLog) => (
                                                 <li key={activityLog._id}>
                                                     <span className="font-bold text-slate-600">
