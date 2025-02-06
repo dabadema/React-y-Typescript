@@ -111,19 +111,20 @@ export default function TaskModalDetails() {
                                             {data.description}
                                         </p>
 
-                                        <p className="text-lg text-slate-500 mb-2 underline">
+                                        <p className="text-xl text-slate-500 mb-2 underline">
                                             Change log:
                                         </p>
 
-                                        {data.completedBy.map((activityLog) => (
-                                            <p key={activityLog._id}>
-                                                <span className="font-bold text-slate-600">
-                                                    {activityLog.status}
-                                                </span>{' '}
-                                                by:
-                                                {activityLog.user.name}
-                                            </p>
-                                        ))}
+                                        <ul className="list-decimal">
+                                            {data.completedBy.map((activityLog) => (
+                                                <li key={activityLog._id}>
+                                                    <span className="font-bold text-slate-600">
+                                                        {statusTranslations[activityLog.status]}
+                                                    </span>{' '}
+                                                    by: {activityLog.user.name}
+                                                </li>
+                                            ))}
+                                        </ul>
 
                                         <div className="my-5 space-y-3">
                                             <label className="font-bold">Actual status:</label>
