@@ -10,5 +10,14 @@ export class NoteController {
         note.content = content;
         note.createdBy = req.user.id;
         note.task = req.task.id;
+
+        req.task.notes.push(note.id);
+
+        try {
+            await Promise.allSettled([req.task.save(), note.save()]);
+            res.send('Note created properly');
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
     };
 }
