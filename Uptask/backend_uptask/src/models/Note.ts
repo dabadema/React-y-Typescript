@@ -27,3 +27,5 @@ const NoteSchema: Schema = new Schema(
 );
 
 const Note = mongoose.model<INote>('Note', NoteSchema);
+
+export default Note;
