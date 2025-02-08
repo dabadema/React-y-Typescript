@@ -20,4 +20,8 @@ export class NoteController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static getTaskNotes = async (req: Request, res: Response) => {
+        console.log('Get notes');
+    };
 }
