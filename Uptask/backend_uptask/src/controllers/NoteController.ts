@@ -34,9 +34,26 @@ export class NoteController {
         }
     };
 
-    static deleteNote = async (req: Request, res: Response) => {
+    static deleteNote = async (req: Request<NoteParams>, res: Response) => {
+        const { noteId } = req.params;
+
+        const note = await Note.findById(noteId);
+
+        if (!note) {
+            const error = new Error('Note not found');
+            res.status(404).json({ error: error.message });
+            return;
+        }
+
+        if (note.createdBy.toString() !== req.user.id.toString()) {
+            const error = new Error('Not valid action');
+            res.status(401).json({ error: error.message });
+            return;
+        }
+
         try {
-            const { nodeId } = req.params;
+            await note.deleteOne();
+            res.json({ message: 'Note deleted' });
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
