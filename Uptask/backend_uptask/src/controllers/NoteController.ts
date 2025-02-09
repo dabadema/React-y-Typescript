@@ -51,8 +51,10 @@ export class NoteController {
             return;
         }
 
+        req.task.notes = req.task.notes.filter((note) => note.toString() !== noteId.toString());
+
         try {
-            await note.deleteOne();
+            await Promise.allSettled([req.task.save(), note.deleteOne()]);
             res.json({ message: 'Note deleted' });
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
