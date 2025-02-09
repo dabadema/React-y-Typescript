@@ -29,4 +29,12 @@ export class NoteController {
             res.status(500).json({ error: 'There was an error' });
         }
     };
+
+    static deleteNote = async (req: Request, res: Response) => {
+        try {
+            const { nodeId } = req.params;
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }
