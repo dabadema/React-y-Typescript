@@ -111,20 +111,28 @@ export default function TaskModalDetails() {
                                             {data.description}
                                         </p>
 
-                                        <p className="text-xl text-slate-500 mt-4 underline">
-                                            Change log:
-                                        </p>
+                                        {data.completedBy.length ? (
+                                            <>
+                                                <p className="text-xl text-slate-500 mt-4 underline">
+                                                    Change log:
+                                                </p>
 
-                                        <ul className="list-decimal my-4">
-                                            {data.completedBy.map((activityLog) => (
-                                                <li key={activityLog._id}>
-                                                    <span className="font-bold text-slate-600">
-                                                        {statusTranslations[activityLog.status]}
-                                                    </span>{' '}
-                                                    by: {activityLog.user.name}
-                                                </li>
-                                            ))}
-                                        </ul>
+                                                <ul className="list-decimal my-4">
+                                                    {data.completedBy.map((activityLog) => (
+                                                        <li key={activityLog._id}>
+                                                            <span className="font-bold text-slate-600">
+                                                                {
+                                                                    statusTranslations[
+                                                                        activityLog.status
+                                                                    ]
+                                                                }
+                                                            </span>{' '}
+                                                            by: {activityLog.user.name}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </>
+                                        ) : null}
 
                                         <div className="my-5 space-y-3">
                                             <label className="font-bold">Actual status:</label>
