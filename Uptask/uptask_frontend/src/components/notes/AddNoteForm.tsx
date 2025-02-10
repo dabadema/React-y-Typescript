@@ -22,6 +22,7 @@ export default function AddNoteForm() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({ defaultValues: initialValues });
 
@@ -32,6 +33,7 @@ export default function AddNoteForm() {
         },
         onSuccess: (data) => {
             toast.success(data);
+            reset();
         },
     });
 
