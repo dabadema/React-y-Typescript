@@ -36,9 +36,11 @@ export default function AddNoteForm() {
     });
 
     const handleAddNote = (formData: NoteFormData) => {
-        console.log(formData);
-        console.log(projectId);
-        console.log(taskId);
+        mutate({
+            projectId,
+            taskId,
+            formData,
+        });
     };
 
     return (
