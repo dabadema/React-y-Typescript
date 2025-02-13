@@ -40,7 +40,7 @@ export type User = z.infer<typeof userSchema>;
 export const noteSchema = z.object({
     _id: z.string(),
     content: z.string(),
-    createdBy: z.string(),
+    createdBy: userSchema,
     task: z.string(),
     createdAt: z.string(),
 });
