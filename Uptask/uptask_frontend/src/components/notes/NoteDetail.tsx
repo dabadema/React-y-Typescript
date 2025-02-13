@@ -2,7 +2,7 @@ import { deleteNote } from '@/api/NoteAPI';
 import { useAuth } from '@/hooks/useAuth';
 import { Note } from '@/types/index';
 import { formatDate } from '@/utils/utils';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -23,6 +23,8 @@ export default function NoteDetail({ note }: NoteDetailProps) {
     const queryParams = new URLSearchParams(location.search);
     const taskId = queryParams.get('viewTask')!;
 
+    const queryClient = useQueryClient();
+
     const { mutate } = useMutation({
         mutationFn: deleteNote,
         onError: (error) => {
@@ -30,6 +32,7 @@ export default function NoteDetail({ note }: NoteDetailProps) {
         },
         onSuccess: (data) => {
             toast.success(data);
+            queryClient.invalidateQueries({ queryKey: ['task', taskId] });
         },
     });
 
