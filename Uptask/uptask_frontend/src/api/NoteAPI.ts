@@ -1,11 +1,11 @@
 import { isAxiosError } from 'axios';
-import { NoteFormData } from '../types';
+import { NoteFormData, Project } from '../types';
 import api from '@/lib/axios';
 
 type NoteAPIType = {
     formData: NoteFormData;
-    projectId: ['_id'];
-    taskId: ['_id'];
+    projectId: Project['_id'];
+    taskId: Project['_id'];
 };
 
 export async function createNote({
