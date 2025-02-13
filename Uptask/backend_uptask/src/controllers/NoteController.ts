@@ -55,7 +55,7 @@ export class NoteController {
 
         try {
             await Promise.allSettled([req.task.save(), note.deleteOne()]);
-            res.json({ message: 'Note deleted' });
+            res.send('Note deleted');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
