@@ -51,9 +51,6 @@ export default function NoteDetail({ note }: NoteDetailProps) {
                     {canDelete && (
                         <button
                             onClick={() => {
-                                console.log(note._id);
-                                console.log(taskId);
-                                console.log(projectId);
                                 mutate({
                                     projectId,
                                     taskId,
