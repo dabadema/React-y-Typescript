@@ -24,7 +24,11 @@ export default function NoteDetail({ note }: NoteDetailProps) {
                         </p>
                         <p className="text-xs text-slate-500 mt-2">{formatDate(note.createdAt)}</p>
                     </div>
-                    {canDelete && <button className=" hover:text-red-500">Delete</button>}
+                    {canDelete && (
+                        <button className="bg-red-400 hover:bg-red-500 p-2 text-xs text-white font-bold cursor-pointer transition-colors">
+                            Delete
+                        </button>
+                    )}
                 </div>
             </>
         );
