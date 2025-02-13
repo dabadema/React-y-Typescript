@@ -1,7 +1,11 @@
+import { deleteNote } from '@/api/NoteAPI';
 import { useAuth } from '@/hooks/useAuth';
 import { Note } from '@/types/index';
 import { formatDate } from '@/utils/utils';
+import { useMutation } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type NoteDetailProps = {
     note: Note;
@@ -11,6 +15,23 @@ export default function NoteDetail({ note }: NoteDetailProps) {
     const { data, isLoading } = useAuth();
 
     const canDelete = useMemo(() => data?._id === note.createdBy._id, [data]);
+
+    const params = useParams();
+    const projectId = params.projectId!;
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const taskId = queryParams.get('viewTask')!;
+
+    const { mutate } = useMutation({
+        mutationFn: deleteNote,
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        onSuccess: (data) => {
+            toast.success(data);
+        },
+    });
 
     if (isLoading) return 'Cargando...';
     if (data)
@@ -25,7 +46,19 @@ export default function NoteDetail({ note }: NoteDetailProps) {
                         <p className="text-xs text-slate-500 mt-2">{formatDate(note.createdAt)}</p>
                     </div>
                     {canDelete && (
-                        <button className="bg-red-400 hover:bg-red-500 p-2 text-xs text-white font-bold cursor-pointer transition-colors">
+                        <button
+                            onClick={() => {
+                                console.log(note._id);
+                                console.log(taskId);
+                                console.log(projectId);
+                                mutate({
+                                    projectId,
+                                    taskId,
+                                    noteId: note._id,
+                                });
+                            }}
+                            className="bg-red-400 hover:bg-red-500 p-2 text-xs text-white font-bold cursor-pointer transition-colors"
+                        >
                             Delete
                         </button>
                     )}
