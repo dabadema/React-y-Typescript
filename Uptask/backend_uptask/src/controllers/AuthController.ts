@@ -217,4 +217,16 @@ export class AuthController {
         res.json(req.user);
         return;
     };
+
+    static updateProfile = async (req: Request, res: Response) => {
+        const { name, email } = req.body;
+
+        req.user.name = name;
+        req.user.email = email;
+
+        try {
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
 }
