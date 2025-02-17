@@ -225,6 +225,8 @@ export class AuthController {
         req.user.email = email;
 
         try {
+            await req.user.save();
+            res.json({ message: 'Profile updated successfully' });
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
