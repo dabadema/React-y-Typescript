@@ -90,10 +90,9 @@ router.get('/user', authenticate, AuthController.user);
 router.put(
     '/profile',
     authenticate,
-    [
-        body('email').isEmail().withMessage('Invalid email'),
-        body('name').notEmpty().withMessage('Name is required'),
-    ],
+    body('name').notEmpty().withMessage('Name is required'),
+    body('email').isEmail().withMessage('Invalid email'),
+    handleInputErrors,
     AuthController.updateProfile
 );
 
