@@ -5,6 +5,7 @@ import { generateToken } from '../utils/token';
 import Token from '../models/Token';
 import { AuthEmail } from '../emails/AuthEmail';
 import { generateJWT } from '../utils/jwt';
+import { compare } from 'bcrypt';
 
 export class AuthController {
     static createAccount = async (req: Request, res: Response) => {
@@ -234,6 +235,27 @@ export class AuthController {
         try {
             await req.user.save();
             res.json({ message: 'Profile updated successfully' });
+        } catch (error) {
+            res.status(500).json({ error: 'There was an error' });
+        }
+    };
+
+    static updateCurrentUserPassword = async (req: Request, res: Response) => {
+        const { current_password, password } = req.body;
+
+        const user = await User.findById(req.user.id);
+
+        const isPasswordCorrect = await comparePassword(current_password, user.password);
+        if (!isPasswordCorrect) {
+            const error = new Error('Actual password is incorrect');
+            res.status(401).json({ error: error.message });
+            return;
+        }
+
+        try {
+            user.password = await hashPassword(password);
+            await user.save();
+            res.json({ message: 'Password updated successfully' });
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
