@@ -234,7 +234,7 @@ export class AuthController {
 
         try {
             await req.user.save();
-            res.json({ message: 'Profile updated successfully' });
+            res.send('Profile updated successfully');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
@@ -255,7 +255,7 @@ export class AuthController {
         try {
             user.password = await hashPassword(password);
             await user.save();
-            res.json({ message: 'Password updated successfully' });
+            res.send('Password updated successfully');
         } catch (error) {
             res.status(500).json({ error: 'There was an error' });
         }
