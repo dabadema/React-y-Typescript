@@ -2,8 +2,8 @@ import { FingerPrintIcon, UserIcon } from '@heroicons/react/20/solid';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const tabs = [
-    { name: 'Mi Cuenta', href: '/profile', icon: UserIcon },
-    { name: 'Cambiar Password', href: '/profile/password', icon: FingerPrintIcon },
+    { name: 'My account', href: '/profile', icon: UserIcon },
+    { name: 'Change password', href: '/profile/password', icon: FingerPrintIcon },
 ];
 
 function classNames(...classes: string[]) {
