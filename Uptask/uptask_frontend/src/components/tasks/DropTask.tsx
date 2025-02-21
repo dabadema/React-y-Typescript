@@ -1,8 +1,19 @@
-import React from 'react';
+import { useDroppable } from '@dnd-kit/core';
 
-export default function DropTask() {
+type DropTaskProps = {
+    status: string;
+};
+
+export default function DropTask({ status }: DropTaskProps) {
+    const { isOver, setNodeRef } = useDroppable({
+        id: status,
+    });
+
     return (
-        <div className="text-xs font-semibold border border-dashed border-slate-500 uppercase p-2 mt-5 grid place-content-center text-slate-500">
+        <div
+            ref={setNodeRef}
+            className="text-xs font-semibold border border-dashed border-slate-500 uppercase p-2 mt-5 grid place-content-center text-slate-500"
+        >
             Drop the Task here
         </div>
     );
