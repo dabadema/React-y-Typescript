@@ -1,6 +1,7 @@
 import { Task } from '@/types/index';
 import TaskCard from '@/components/tasks/TaskCard';
 import { statusTranslations } from '@/locales/es';
+import DropTask from './DropTask';
 
 type TaskListProps = {
     tasks: Task[];
@@ -46,6 +47,8 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
                         >
                             {statusTranslations[status]}
                         </h3>
+
+                        <DropTask />
 
                         <ul className="mt-5 space-y-5">
                             {tasks.length === 0 ? (
