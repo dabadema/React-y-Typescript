@@ -50,13 +50,7 @@ export default function TaskCard({ task, canEdit }: TaskCardProps) {
                 style={style}
                 className="min-w-0 flex flex-col gap-y-4"
             >
-                <button
-                    className="text-xl font-bold text-slate-600 text-left"
-                    type="button"
-                    onClick={() => navigate(location.pathname + `?viewTask=${task._id}`)}
-                >
-                    {task.name}
-                </button>
+                <p className="text-xl font-bold text-slate-600 text-left">{task.name}</p>
                 <p className="text-slate-500">{task.description}</p>
             </div>
 
