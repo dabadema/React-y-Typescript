@@ -1,4 +1,4 @@
-import { Task } from '@/types/index';
+import { TaskProject } from '@/types/index';
 import { MenuButton, Transition } from '@headlessui/react';
 import { Menu, MenuItem, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { useDraggable } from '@dnd-kit/core';
 
 type TaskCardProps = {
-    task: Task;
+    task: TaskProject;
     canEdit: boolean;
 };
 
