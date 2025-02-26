@@ -39,7 +39,7 @@ export async function getProjectById(projectId: Project['_id']) {
         const { data } = await api.get(`/projects/${projectId}`);
         const response = editProjectSchema.safeParse(data);
         if (response.success) {
-            return response;
+            return response.data;
         }
     } catch (error) {
         if (isAxiosError(error) && error.response) {
@@ -53,7 +53,7 @@ export async function getFullProjectDetailsById(projectId: Project['_id']) {
         const { data } = await api.get(`/projects/${projectId}`);
         const response = projectSchema.safeParse(data);
         if (response.success) {
-            return response;
+            return response.data;
         }
     } catch (error) {
         if (isAxiosError(error) && error.response) {
