@@ -1,5 +1,15 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function NotFound() {
-    return <div>Not Found</div>;
+    return (
+        <>
+            <h1 className="font-black text-center text-4xl text-white">Page not found</h1>
+            <p className="mt-10 text-center text-white">
+                MAybe you would like to go back to your{' '}
+                <Link className="text-fuchsia-500" to={'/'}>
+                    Projects
+                </Link>
+            </p>
+        </>
+    );
 }
