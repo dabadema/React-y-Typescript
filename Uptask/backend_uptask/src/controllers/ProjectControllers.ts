@@ -56,24 +56,11 @@ export class ProjectController {
     };
 
     static updateProjectById = async (req: Request, res: Response) => {
-        const { id } = req.params;
-
         try {
-            const project = await Project.findById(id);
-            if (!project) {
-                const error = new Error('Project not found');
-                res.status(404).json({ error: error.message });
-            }
-
-            if (project.manager.toString() !== req.user.id.toString()) {
-                const error = new Error('Just manager can update the project');
-                res.status(404).json({ error: error.message });
-            }
-
-            project.clientName = req.body.clientName;
-            project.projectName = req.body.projectName;
-            project.description = req.body.description;
-            await project.save();
+            req.project.clientName = req.body.clientName;
+            req.project.projectName = req.body.projectName;
+            req.project.description = req.body.description;
+            await req.project.save();
             res.send('Project updated');
         } catch (error) {
             res.status(500).json({ error: 'Project not updated' });
@@ -81,22 +68,8 @@ export class ProjectController {
     };
 
     static deleteProjectById = async (req: Request, res: Response) => {
-        const { id } = req.params;
-
         try {
-            const project = await Project.findById(id);
-
-            if (!project) {
-                const error = new Error('Project not found');
-                res.status(404).json({ error: error.message });
-            }
-
-            if (project.manager.toString() !== req.user.id.toString()) {
-                const error = new Error('Just manager can delete the project');
-                res.status(404).json({ error: error.message });
-            }
-
-            await project.deleteOne();
+            await req.project.deleteOne();
             res.send('Project deleted');
         } catch (error) {
             res.status(500).json({ error: 'Project not deleted' });
