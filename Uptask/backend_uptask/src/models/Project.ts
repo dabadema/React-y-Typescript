@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, PopulatedDoc, Types } from 'mongoose';
-import { ITask } from './Task';
+import Task, { ITask } from './Task';
 import { IUser } from './User';
 
 export interface IProject extends Document {
@@ -41,6 +41,20 @@ const ProjectSchema: Schema = new Schema(
         team: [{ type: Types.ObjectId, ref: 'User' }],
     },
     { timestamps: true }
+);
+
+// Middleware
+
+ProjectSchema.pre(
+    'deleteOne',
+    {
+        document: true,
+    },
+    async function () {
+        const projectId = this._id;
+        if (!projectId) return;
+        await Task.deleteMany({ project: projectId });
+    }
 );
 
 const Project = mongoose.model<IProject>('Project', ProjectSchema);
